@@ -33,7 +33,7 @@ export default async function Book({
   isbn,
   displayGetMore,
 }: {
-  bookData: BookData;
+  bookData?: BookData;
   isbn: string;
   displayGetMore: boolean;
 }) {
@@ -48,10 +48,10 @@ export default async function Book({
     amazon: null,
   };
 
-  const person1: BookData = {
-    ...defaults,
-    ...bookData,
-  };
+  //   const book: BookData = {
+  //     ...defaults,
+  //     ...bookData,
+  //   };
 
   //   const data = await getGoogleData(isbn, props.title);
   //   const googleData = {
