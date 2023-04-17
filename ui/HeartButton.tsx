@@ -1,11 +1,12 @@
 'use client';
+import { BookData } from '@/types';
 import { useAuth } from '@clerk/nextjs';
 import { useState } from 'react';
 // import { useSession } from 'next-auth/react';
 import { VscHeart, VscHeartFilled } from 'react-icons/vsc';
 import toast, { Toaster } from 'react-hot-toast';
 
-export default function HeartButton(book) {
+export default function HeartButton({ book }: { book: BookData }) {
   const [liked, setLike] = useState(false);
   // const { data: session } = useSession();
   const { isLoaded, userId, sessionId, getToken } = useAuth();

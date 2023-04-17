@@ -1,31 +1,27 @@
+'use client';
 import Link from 'next/link';
 import Image from 'next/image';
+import { BookData } from '@/types';
 import HeartButton from './HeartButton';
+import { ErrorBoundary } from 'react-error-boundary';
 
-// async function getGoogleData(isbn, title) {
-//   const url = new URL('http://localhost:3000/api/books?');
-//   const params = { isbn, title };
-//   url.search = new URLSearchParams(params).toString();
-//   const res = await fetch(url);
-//   if (!res.ok) {
-//     console.log(`res is ${JSON.stringify(res)}`);
-//     // throw new Error(`Failed to fetch data for ${title}`);
-//   }
-//   const data = await res.json();
-//   return data;
-// }
-
-export interface BookData {
+async function getGoogleData({
+  isbn,
+  title = '',
+}: {
   isbn: string;
   title: string;
-  authors: string[];
-  image: string;
-  description: string;
-  rank?: number | null;
-  publishedDate?: string | null;
-  pageCount?: number | null;
-  categories?: string[] | null;
-  amazon?: string | null;
+}) {
+  const url = new URL('http://localhost:3000/api/books?');
+  const params = { isbn, title };
+  url.search = new URLSearchParams(params).toString();
+  const res = await fetch(url);
+  if (!res.ok) {
+    console.log(`res is ${JSON.stringify(res)}`);
+    throw new Error(`Failed to fetch data for ${title}`);
+  }
+  const data = await res.json();
+  return data;
 }
 
 export default async function Book({
@@ -52,20 +48,20 @@ export default async function Book({
     ...bookData,
   };
 
-  //   const data = await getGoogleData(isbn, props.title);
-  //   const googleData = {
-  //     title: data.title,
-  //     author: data.authors,
-  //     image: data.imageLinks.thumbnail,
-  //     publishedDate: data.publishedDate,
-  //     pageCount: data.pageCount,
-  //     categories: data.categories,
-  //   };
-  //   if (displayGetMore) {
-  //     googleData.description = data.description;
-  //   }
-  // const book = { ...defaultProps, isbn: isbn, ...props,  };
-  //   // console.log(book);
+  const data = await getGoogleData(isbn, book.title);
+  const googleData = {
+    title: data.title,
+    authors: data.authors,
+    image: data.imageLinks.thumbnail,
+    description: data.description,
+    publishedDate: data.publishedDate,
+    pageCount: data.pageCount,
+    categories: data.categories,
+  };
+  if (displayGetMore) {
+    googleData.description = data.description;
+  }
+  book = { ...defaults, isbn: isbn, ...googleData };
   let {
     title,
     authors,
@@ -78,19 +74,21 @@ export default async function Book({
   } = book;
   return (
     <div>
-      <h1>{title}</h1>
-      <h2>{authors}</h2>
-      {publishedDate ? <p>{publishedDate}</p> : ''}
-      <Image alt={title} src={image} width={150} height={150}></Image>
-      <p>{description}</p>
-      {pageCount ? <p>{pageCount}</p> : ''}
-      {categories ? <p>{categories}</p> : ''}
-      {displayGetMore ? <Link href={`/books/${isbn}`}>Learn more </Link> : ''}
-      {amazon ? <a href={amazon}>Buy Here</a> : ''}
-      <div>
-        <span>Add to Favorites </span>
-        <HeartButton book={book} />
-      </div>
+      <ErrorBoundary fallback={<div>Something went wrong</div>}>
+        <h1>{title}</h1>
+        <h2>{authors}</h2>
+        {publishedDate ? <p>{publishedDate}</p> : ''}
+        <Image alt={title} src={image} width={150} height={150}></Image>
+        <p>{description}</p>
+        {pageCount ? <p>{pageCount}</p> : ''}
+        {categories ? <p>{categories}</p> : ''}
+        {displayGetMore ? <Link href={`/books/${isbn}`}>Learn more </Link> : ''}
+        {amazon ? <a href={amazon}>Buy Here</a> : ''}
+        <div>
+          <span>Add to Favorites </span>
+          <HeartButton book={book} />
+        </div>
+      </ErrorBoundary>
     </div>
   );
 }

@@ -1,12 +1,7 @@
 import Link from 'next/link';
-import Image from 'next/image';
-// import { SignInButton, SignedIn, SignedOut } from '@clerk/nextjs/app-beta';
-
-// import { getServerSession } from 'next-auth/next';
-// import { authOptions } from 'pages/api/auth/[...nextauth].js';
+import User from './User';
 
 export default async function NavBar() {
-  // const session = await getServerSession(authOptions);
   return (
     <nav>
       <ul className="flex">
@@ -19,7 +14,9 @@ export default async function NavBar() {
         <li>
           <Link href="/profile">Profile</Link>
         </li>
-        <li>{/* <SignInButton /> */}</li>
+        <li>
+          <User />
+        </li>
       </ul>
     </nav>
   );

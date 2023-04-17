@@ -1,4 +1,5 @@
-import Book, { BookData } from '@/ui/Book';
+import { BookData } from '@/types';
+import Book from '@/ui/Book';
 
 async function getData() {
   const link = `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=${process.env.NYT_API_KEY}`;
