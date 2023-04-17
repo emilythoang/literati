@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-// import HeartButton from './heartButton.js';
+import HeartButton from './HeartButton';
 
 // async function getGoogleData(isbn, title) {
 //   const url = new URL('http://localhost:3000/api/books?');
@@ -47,11 +47,10 @@ export default async function Book({
     categories: null,
     amazon: null,
   };
-
-  //   const book: BookData = {
-  //     ...defaults,
-  //     ...bookData,
-  //   };
+  let book: BookData = {
+    ...defaults,
+    ...bookData,
+  };
 
   //   const data = await getGoogleData(isbn, props.title);
   //   const googleData = {
@@ -65,22 +64,21 @@ export default async function Book({
   //   if (displayGetMore) {
   //     googleData.description = data.description;
   //   }
-  //   const book = { ...defaultProps, isbn: isbn, ...props, ...googleData };
+  // const book = { ...defaultProps, isbn: isbn, ...props,  };
   //   // console.log(book);
-  //   let book;
-  //     let {
-  //       title,
-  //       authors,
-  //       publishedDate,
-  //       image,
-  //       description,
-  //       pageCount,
-  //       categories,
-  //       amazon,
-  //     } = book;
+  let {
+    title,
+    authors,
+    publishedDate,
+    image,
+    description,
+    pageCount,
+    categories,
+    amazon,
+  } = book;
   return (
     <div>
-      {/* <h1>{title}</h1>
+      <h1>{title}</h1>
       <h2>{authors}</h2>
       {publishedDate ? <p>{publishedDate}</p> : ''}
       <Image alt={title} src={image} width={150} height={150}></Image>
@@ -91,8 +89,8 @@ export default async function Book({
       {amazon ? <a href={amazon}>Buy Here</a> : ''}
       <div>
         <span>Add to Favorites </span>
-        <HeartButton book={book} /> 
-      </div> */}
+        <HeartButton book={book} />
+      </div>
     </div>
   );
 }
