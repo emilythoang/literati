@@ -1,18 +1,16 @@
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
-  let book;
   const { searchParams } = new URL(request.url);
   const isbn = searchParams.get('isbn');
   const link = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${process.env.BOOKS_API_KEY}`;
+  console.log(link);
   let res = await fetch(link);
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
   const data = await res.json();
-  console.log(data);
-  book = data.items[0]['volumeInfo'] || {};
-  console.log(book);
+  const book = data.items[0]['volumeInfo'] || {};
   return NextResponse.json(book);
 }
 

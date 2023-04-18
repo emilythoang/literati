@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { BookData } from '@/types';
-import HeartButton from './HeartButton';
+// import HeartButton from './HeartButton';
 import { ErrorBoundary } from 'react-error-boundary';
 
 export default function Book({

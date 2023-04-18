@@ -1,14 +1,14 @@
 import Book from '@/ui/Book';
+import { BookData } from '@/types';
 
-async function getData(isbn) {
-  const link = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${process.env.BOOKS_API_KEY}`;
-  const res = await fetch(link);
+async function getData(isbn: string) {
+  const res = await fetch(`http://localhost:3000/api/books?isbn=${isbn}`);
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
   const data = await res.json();
-  const book = data.items[0]['volumeInfo'];
-  return book;
+
+  return data;
 }
 
 export default async function Page({ params }: { params: { book: string } }) {
@@ -23,8 +23,8 @@ export default async function Page({ params }: { params: { book: string } }) {
   }
   const bookData = {
     title: book.title,
-    author: book.authors,
-    isbn13: isbn,
+    authors: book.authors,
+    isbn: isbn,
     description: book.description,
     image: book.imageLinks.thumbnail,
     publishedDate: book.publishedDate,

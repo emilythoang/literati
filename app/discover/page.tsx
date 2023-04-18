@@ -7,7 +7,6 @@ async function getData() {
     throw new Error('Failed to fetch data');
   }
   const data = await res.json();
-  console.log(data);
   const books = data.map((bookData: BookData) => {
     return <Book props={bookData} key={bookData.isbn} displayGetMore={true} />;
   });
