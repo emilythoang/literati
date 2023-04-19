@@ -2,12 +2,12 @@ import Book from '@/ui/Book';
 import { BookData } from '@/types';
 
 async function getData(isbn: string) {
+  console.log('fetch in getData');
   const res = await fetch(`http://localhost:3000/api/books?isbn=${isbn}`);
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
   const data = await res.json();
-
   return data;
 }
 
@@ -30,11 +30,10 @@ export default async function Page({ params }: { params: { book: string } }) {
     publishedDate: book.publishedDate,
     categories: book.categories,
   };
-
   return (
     <div>
       {/* @ts-expect-error Async Server Component */}
-      <Book isbn={bookData} key={bookData.isbn13} displayGetMore={false} />
+      <Book props={bookData} key={bookData.isbn13} displayGetMore={false} />
     </div>
   );
 }
