@@ -4,11 +4,11 @@ import { useState } from 'react';
 export default function SearchBar() {
   const [query, setQuery] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await fetch(`/api/search?query=${query}`);
+    const res = await fetch(`http://localhost:3000/api/search?query=${query}`);
     const books = await res.json();
-    getSearchResults(books);
+    console.log(books);
   };
   return (
     <form role="search" onSubmit={handleSubmit}>
