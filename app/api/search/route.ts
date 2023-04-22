@@ -11,5 +11,6 @@ export async function GET(request: Request) {
   }
   const data = await res.json();
   const results = data.items;
+  console.log(results);
   return NextResponse.json(results);
 }
