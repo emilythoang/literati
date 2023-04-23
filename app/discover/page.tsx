@@ -2,7 +2,7 @@ import { BookData } from '@/types';
 import Book from '@/ui/Book';
 
 async function getData() {
-  const res = await fetch(`http://localhost:3000/api/discover`);
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/discover`);
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }

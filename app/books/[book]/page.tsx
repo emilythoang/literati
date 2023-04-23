@@ -2,8 +2,7 @@ import Book from '@/ui/Book';
 import { BookData } from '@/types';
 
 async function getData(isbn: string) {
-  console.log('fetch in getData');
-  const res = await fetch(`http://localhost:3000/api/books?isbn=${isbn}`);
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/books?isbn=${isbn}`);
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
