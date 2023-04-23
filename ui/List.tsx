@@ -1,11 +1,31 @@
-// import Link from 'next/link';
-// import Image from 'next/image';
 // import Book from './book.jsx';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-export default function List(name: string) {
+export default function List() {
+  const router = useRouter();
+
+  async function editList(id: string): Promise<void> {
+    await fetch(`/api/bookshelves/${id}`, {
+      method: 'PATCH',
+    });
+    router.refresh();
+  }
+
+  async function deleteList(id: string): Promise<void> {
+    await fetch(`/api/bookshelves/${id}`, {
+      method: 'DELETE',
+    });
+    router.refresh();
+  }
   return (
-    <div>
-      <h1>{name}</h1>
-    </div>
+    <>
+      <Link href="api/bookshelves">
+        <button onClick={() => editList}>Edit</button>
+      </Link>
+      <Link href="api/bookshelves">
+        <button onClick={() => deleteList}>Delete</button>
+      </Link>
+    </>
   );
 }

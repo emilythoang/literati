@@ -1,3 +1,6 @@
+import Book from '@/ui/Book';
+import Bookshelf from '@/ui/Bookshelf';
+
 // async function getData() {
 //   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/discover`);
 //   if (!res.ok) {
@@ -11,5 +14,9 @@
 // }
 
 export default async function Page() {
-  return <div></div>;
+  return (
+    <div>
+      <Bookshelf />
+    </div>
+  );
 }
