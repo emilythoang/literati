@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-export default function List() {
+export default function List({ id, name }: { id: string; name: string }) {
   const router = useRouter();
 
   async function editList(id: string): Promise<void> {

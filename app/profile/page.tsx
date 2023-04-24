@@ -13,9 +13,10 @@ import Bookshelf from '@/ui/Bookshelf';
 //   return books;
 // }
 
-export default async function Page() {
+export default function Page() {
   return (
     <div>
+      {/* @ts-expect-error Server Component */}
       <Bookshelf />
     </div>
   );

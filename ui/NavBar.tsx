@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import User from './User';
 
-export default async function NavBar() {
+export default function NavBar() {
   return (
     <nav>
       <ul className="flex">
