@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { NextApiRequest } from 'next';
 import { prisma } from '@/db';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 export async function GET() {
   return NextResponse.json({ message: 'hello' });
@@ -9,24 +10,27 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  // const res = await request.json();
-  // return NextResponse.json({ res });
-  // }
-  const res = await request.json();
-  console.log(`res is ${JSON.stringify(res)}`);
-  console.log(res.bookshelf);
-  return NextResponse.json(res.bookshelf);
-  //   const res = await request.json();
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return new Response('You must be logged in to add a list', {
+        status: 403,
+      });
+    }
+    const res = await request.json();
+    const listName = res.list;
+    console.log(listName);
 
-  //   const body = request.body;
-  //   const { name } = body;
-  //   const list = await prisma.list.create({
-  //     data: {
-  //       name: name,
-  //     },
-  //   });
-
-  //   return NextResponse.json({ list });
+    const list = await prisma.list.create({
+      data: {
+        name: listName,
+        userId: session.user.id,
+      },
+    });
+    return NextResponse.json(list);
+  } catch (error) {
+    return new Response(JSON.stringify(error));
+  }
 }
 
 // import { NextResponse } from 'next/server';

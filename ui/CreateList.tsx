@@ -2,33 +2,18 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 
-// async function fetchShelves() {
-//   const res = await fetch(`http://localhost:3000/api/bookshelves`);
-//   if (!res.ok) {
-//     throw new Error('Failed to fetch data');
-//   }
-//   const data = await res.json();
-//   return data;
-//   //   const lists = data.map((list) => {
-//   //     return <List key={list.id} id={list.id} name={list.name} />;
-//   //   });
-//   //   return lists;
-// }
-
-// const lists = await fetchShelves();
-
 export default function CreateList() {
-  const [bookshelf, setBookshelf] = useState('');
+  const [list, setList] = useState('');
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      const body = { bookshelf };
+      const body = { list };
       await fetch(`/api/bookshelves`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      setBookshelf('');
+      setList('');
     } catch (error) {
       console.error(error);
     }
@@ -36,16 +21,16 @@ export default function CreateList() {
 
   return (
     <form className="" onSubmit={handleSubmit}>
-      <h2>Add Bookshelf</h2>
+      <h2>Add List</h2>
       <label>
         Name
         <br />
         <input
           type="text"
           name="bookshelf"
-          value={bookshelf}
+          value={list}
           onChange={(e) => {
-            setBookshelf(e.target.value);
+            setList(e.target.value);
           }}
           required
         />
