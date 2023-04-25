@@ -18,7 +18,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthContext>
-          {/* @ts-expect-error Async Server Component */}
           <NavBar />
           <SearchBar />
           {children}

@@ -1,6 +1,5 @@
-'use client';
-import { useState } from 'react';
-import Link from 'next/link';
+import CreateList from '@/ui/CreateList';
+
 import List from './List';
 
 async function fetchShelves() {
@@ -17,42 +16,12 @@ async function fetchShelves() {
 }
 
 export default async function Bookshelf() {
-  const [list, setList] = useState('');
   const lists = await fetchShelves();
 
-  const addList = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(list);
-    try {
-      const body = { list };
-      await fetch(`/api/bookshelves`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
-    <div>
-      <form onSubmit={addList}>
-        <h2>Add List</h2>
-        <label>
-          Name
-          <input
-            value={list}
-            onChange={(e) => setList(e.target.value)}
-            type="text"
-          />
-        </label>
-        <div>
-          <button type="submit">Add</button>
-          <Link href="/profile">Cancel</Link>
-        </div>
-      </form>
-      {JSON.stringify(lists)}
-    </div>
+    <>
+      <CreateList />
+      {/* {JSON.stringify(lists)} */}
+    </>
   );
 }

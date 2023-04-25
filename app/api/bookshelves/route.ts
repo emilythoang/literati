@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { NextApiRequest } from 'next';
 import { prisma } from '@/db';
 
 export async function GET() {
@@ -8,12 +9,13 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const res = await request.json();
-  return NextResponse.json({ res });
+  // const res = await request.json();
+  // return NextResponse.json({ res });
   // }
-
-  //   const body = request.body;
-  //   console.log(body);
+  const res = await request.json();
+  console.log(`res is ${JSON.stringify(res)}`);
+  console.log(res.bookshelf);
+  return NextResponse.json(res.bookshelf);
   //   const res = await request.json();
 
   //   const body = request.body;

@@ -5,7 +5,7 @@ import { Session } from 'next-auth';
 
 export interface AuthContextProps {
   children: React.ReactNode;
-  session: Session;
+  session?: Session;
 }
 
 export default function AuthContext({ children, session }: AuthContextProps) {
