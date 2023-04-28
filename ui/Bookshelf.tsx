@@ -1,11 +1,9 @@
-'use client';
-
 import { use, cache } from 'react';
-
-import CreateList from '@/ui/CreateList';
-import List from './List';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import { prisma } from '@/db';
+import CreateList from '@/ui/CreateList';
+import List from './List';
 
 interface List {
   id: string;
@@ -13,23 +11,23 @@ interface List {
   userId: string;
 }
 
-const fetchShelves = cache(async () => {
-  const res = await fetch(`/api/bookshelves`);
-  console.log(res);
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
+const fetchShelves = async () => {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    console.log('You must be logged in to have lists');
+    return;
   }
-  const data = await res.json();
-  console.log(data);
-  console.log(`data is ${JSON.stringify(data)}`);
+  const data = await prisma.list.findMany({
+    where: { userId: session.user.id },
+  });
   const lists = data.map((list: List) => {
     return <List key={list.id} id={list.id} name={list.name} />;
   });
   return lists;
-});
+};
 
-export default function Bookshelf() {
-  const lists = use(fetchShelves());
+export default async function Bookshelf() {
+  const lists = await fetchShelves();
 
   return (
     <>

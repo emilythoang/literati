@@ -5,18 +5,15 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 export async function GET() {
   try {
-    console.log('hello world');
     const session = await getServerSession(authOptions);
     if (!session) {
       return new Response('You must be logged in to have lists', {
         status: 403,
       });
     }
-    console.log(`session in get is ${JSON.stringify(session)}`);
     const lists = await prisma.list.findMany({
       where: { userId: session.user.id },
     });
-    console.log(JSON.stringify(lists));
     return NextResponse.json(lists);
   } catch (error) {
     return new Response(JSON.stringify(error));

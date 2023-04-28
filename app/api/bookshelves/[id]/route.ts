@@ -16,7 +16,6 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   const id = params.id;
-  console.log(id);
   await prisma.list.delete({
     where: {
       id,
