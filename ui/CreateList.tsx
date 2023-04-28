@@ -1,8 +1,10 @@
 'use client';
+import { useState } from 'react';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function CreateList() {
+  const router = useRouter();
   const [list, setList] = useState('');
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -14,6 +16,7 @@ export default function CreateList() {
         body: JSON.stringify(body),
       });
       setList('');
+      router.refresh();
     } catch (error) {
       console.error(error);
     }

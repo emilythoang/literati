@@ -1,27 +1,40 @@
+'use client';
+
+import { use, cache } from 'react';
+
 import CreateList from '@/ui/CreateList';
-
 import List from './List';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-async function fetchShelves() {
-  const res = await fetch(`http://localhost:3000/api/bookshelves`);
+interface List {
+  id: string;
+  name: string;
+  userId: string;
+}
+
+const fetchShelves = cache(async () => {
+  const res = await fetch(`/api/bookshelves`);
+  console.log(res);
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
   const data = await res.json();
-  return data;
-  //   const lists = data.map((list) => {
-  //     return <List key={list.id} id={list.id} name={list.name} />;
-  //   });
-  //   return lists;
-}
+  console.log(data);
+  console.log(`data is ${JSON.stringify(data)}`);
+  const lists = data.map((list: List) => {
+    return <List key={list.id} id={list.id} name={list.name} />;
+  });
+  return lists;
+});
 
-export default async function Bookshelf() {
-  const lists = await fetchShelves();
+export default function Bookshelf() {
+  const lists = use(fetchShelves());
 
   return (
     <>
       <CreateList />
-      {/* {JSON.stringify(lists)} */}
+      {lists}
     </>
   );
 }

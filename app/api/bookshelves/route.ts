@@ -1,26 +1,40 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/db';
-import { getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 export async function GET() {
-  return NextResponse.json({ message: 'hello' });
-  //   const lists = await prisma.list.findMany();
-  //   return NextResponse.json(lists);
+  try {
+    console.log('hello world');
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return new Response('You must be logged in to have lists', {
+        status: 403,
+      });
+    }
+    console.log(`session in get is ${JSON.stringify(session)}`);
+    const lists = await prisma.list.findMany({
+      where: { userId: session.user.id },
+    });
+    console.log(JSON.stringify(lists));
+    return NextResponse.json(lists);
+  } catch (error) {
+    return new Response(JSON.stringify(error));
+  }
 }
 
 export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
+    console.log(`session in post is ${JSON.stringify(session)}`);
     if (!session) {
+      console.log('error');
       return new Response('You must be logged in to add a list', {
         status: 403,
       });
     }
     const res = await request.json();
     const listName = res.list;
-    console.log(listName);
-
     const list = await prisma.list.create({
       data: {
         name: listName,
@@ -32,29 +46,3 @@ export async function POST(request: Request) {
     return new Response(JSON.stringify(error));
   }
 }
-
-// import { NextResponse } from 'next/server';
-
-// export async function POST(request: Request) {
-//   const res = await request.json();
-//   return NextResponse.json({ res })
-// }
-
-// export async function PATCH(request: NextRequest) {
-//   const updateList = await prisma.list.update({
-//     where: {
-//       email: 'viola@prisma.io',
-//     },
-//     data: {
-//       name: 'Viola the Magnificent',
-//     },
-//   });
-// }
-
-// export async function DELETE(request: NextRequest) {
-//   const deleteList = await prisma.list.delete({
-//     where: {
-//       email: 'bert@prisma.io',
-//     },
-//   });
-// }

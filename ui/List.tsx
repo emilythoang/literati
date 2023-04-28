@@ -1,3 +1,5 @@
+'use client';
+
 // import Book from './book.jsx';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -19,13 +21,10 @@ export default function List({ id, name }: { id: string; name: string }) {
     router.refresh();
   }
   return (
-    <>
-      <Link href="api/bookshelves">
-        <button onClick={() => editList}>Edit</button>
-      </Link>
-      <Link href="api/bookshelves">
-        <button onClick={() => deleteList}>Delete</button>
-      </Link>
-    </>
+    <div>
+      {name}
+      <button onClick={() => editList(id)}>Edit</button>
+      <button onClick={() => deleteList(id)}>Delete</button>
+    </div>
   );
 }
