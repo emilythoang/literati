@@ -1,11 +1,10 @@
-import { use, cache } from 'react';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { prisma } from '@/db';
-import CreateList from '@/ui/CreateList';
+import CreateList from '@/components/CreateList';
 import List from './List';
 
-interface List {
+export interface ListProps {
   id: string;
   name: string;
   userId: string;
@@ -20,7 +19,7 @@ const fetchShelves = async () => {
   const data = await prisma.list.findMany({
     where: { userId: session.user.id },
   });
-  const lists = data.map((list: List) => {
+  const lists = data.map((list: ListProps) => {
     return <List key={list.id} id={list.id} name={list.name} />;
   });
   return lists;

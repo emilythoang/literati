@@ -1,4 +1,4 @@
-import Book from '@/ui/Book';
+import Book from '@/components/Book';
 import { BookData } from '@/types';
 
 async function getData(isbn: string) {

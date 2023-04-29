@@ -1,5 +1,5 @@
 import { BookData } from '@/types';
-import Book from '@/ui/Book';
+import Book from '@/components/Book';
 
 async function getData(query: string) {
   const res = await fetch(

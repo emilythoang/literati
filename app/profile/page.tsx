@@ -1,4 +1,4 @@
-import Bookshelf from '@/ui/Bookshelf';
+import Bookshelf from '@/components/Bookshelf';
 
 export default function Page() {
   return (

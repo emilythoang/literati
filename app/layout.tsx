@@ -1,9 +1,9 @@
 import './globals.css';
 import React from 'react';
 import AuthContext from './(auth)/AuthContext';
-import NavBar from '@/ui/NavBar';
-import SearchBar from '@/ui/SearchBar';
-import Footer from '@/ui/Footer';
+import NavBar from '@/components/NavBar';
+import SearchBar from '@/components/SearchBar';
+import Footer from '@/components/Footer';
 
 export const metadata = {
   title: 'Literati',

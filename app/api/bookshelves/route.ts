@@ -23,9 +23,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
-    console.log(`session in post is ${JSON.stringify(session)}`);
     if (!session) {
-      console.log('error');
       return new Response('You must be logged in to add a list', {
         status: 403,
       });
