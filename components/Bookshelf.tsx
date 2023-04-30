@@ -3,12 +3,7 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { prisma } from '@/db';
 import CreateList from '@/components/CreateList';
 import List from './List';
-
-export interface ListProps {
-  id: string;
-  name: string;
-  userId: string;
-}
+import { ListProps } from '@/types';
 
 const fetchShelves = async () => {
   const session = await getServerSession(authOptions);

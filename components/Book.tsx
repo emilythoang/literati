@@ -1,17 +1,13 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
-import { BookData } from '@/types';
-// import HeartButton from './HeartButton';
-import { ErrorBoundary } from 'react-error-boundary';
+import { BookProps } from '@/types';
 
 export default function Book({
-  props,
+  data,
   displayGetMore = false,
-}: {
-  props: BookData;
-  displayGetMore: boolean;
-}) {
+  children,
+}: BookProps) {
   const {
     title,
     authors,
@@ -22,7 +18,7 @@ export default function Book({
     pageCount = null,
     categories = null,
     amazon = null,
-  } = props;
+  } = data;
   return (
     <div>
       <h1>{title}</h1>
@@ -34,10 +30,7 @@ export default function Book({
       {categories ? <p>{categories}</p> : ''}
       {displayGetMore ? <Link href={`/books/${isbn}`}>Learn more </Link> : ''}
       {amazon ? <a href={amazon}>Buy Here</a> : ''}
-      <div>
-        <span>Add to Favorites </span>
-        {/* <HeartButton book={props} /> */}
-      </div>
+      <>{children}</>
     </div>
   );
 }

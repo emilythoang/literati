@@ -1,5 +1,4 @@
-import Book from '@/components/Book';
-import { BookData } from '@/types';
+import { BookWrapper } from '@/components/BookWrapper';
 
 async function getData(isbn: string) {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/books?isbn=${isbn}`);
@@ -31,8 +30,7 @@ export default async function Page({ params }: { params: { book: string } }) {
   };
   return (
     <div>
-      {/* @ts-expect-error Async Server Component */}
-      <Book props={bookData} key={bookData.isbn13} displayGetMore={false} />
+      <BookWrapper data={bookData} key={bookData.isbn} displayGetMore={false} />
     </div>
   );
 }

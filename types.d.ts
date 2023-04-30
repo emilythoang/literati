@@ -11,6 +11,22 @@ export interface BookData {
   amazon?: string | null;
 }
 
+export interface BookProps {
+  data: BookData;
+  displayGetMore: boolean;
+  children?: ReactNode;
+}
+
+export interface ListsDropdownProps {
+  items: ListProps[];
+}
+
+export interface ListProps {
+  id: string;
+  name: string;
+  userId: string;
+}
+
 export interface Result {
   kind: string;
   id: string;

@@ -8,7 +8,7 @@ async function getData() {
   }
   const data = await res.json();
   const books = data.map((bookData: BookData) => {
-    return <Book props={bookData} key={bookData.isbn} displayGetMore={true} />;
+    return <Book data={bookData} key={bookData.isbn} displayGetMore={true} />;
   });
   return books;
 }
