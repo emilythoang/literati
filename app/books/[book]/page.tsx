@@ -1,7 +1,8 @@
 import { BookWrapper } from '@/components/BookWrapper';
 
 async function getData(isbn: string) {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/books?isbn=${isbn}`);
+  console.log(isbn);
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/books/${isbn}`);
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
@@ -30,7 +31,11 @@ export default async function Page({ params }: { params: { book: string } }) {
   };
   return (
     <div>
-      <BookWrapper data={bookData} key={bookData.isbn} displayGetMore={false} />
+      <BookWrapper
+        bookData={bookData}
+        key={bookData.isbn}
+        displayGetMore={false}
+      />
     </div>
   );
 }

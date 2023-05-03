@@ -8,7 +8,6 @@ export async function GET(request: Request) {
   }
   const params = encodeURIComponent(query);
   const link = `https://www.googleapis.com/books/v1/volumes?q=${params}&key=${process.env.BOOKS_API_KEY}`;
-  console.log(link);
   let res = await fetch(link);
   if (!res.ok) {
     throw new Error('Failed to fetch data');

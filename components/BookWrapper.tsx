@@ -2,12 +2,12 @@ import Book from './Book';
 import DropdownWrapper from './DropdownWrapper';
 import { BookProps } from '@/types';
 
-export const BookWrapper = ({ data, displayGetMore }: BookProps) => {
+export const BookWrapper = ({ bookData, displayGetMore }: BookProps) => {
   return (
     <>
-      <Book data={data} displayGetMore={displayGetMore}>
+      <Book bookData={bookData} displayGetMore={displayGetMore}>
         {/* @ts-expect-error Async Server Component */}
-        <DropdownWrapper />
+        <DropdownWrapper bookData={bookData} />
       </Book>
     </>
   );

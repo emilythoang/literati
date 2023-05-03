@@ -1,8 +1,14 @@
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const isbn = searchParams.get('isbn');
+export async function GET(
+  request: Request,
+  {
+    params,
+  }: {
+    params: { isbn: string };
+  }
+) {
+  const isbn = params.isbn;
   const link = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${process.env.BOOKS_API_KEY}`;
   let res = await fetch(link);
   if (!res.ok) {

@@ -12,20 +12,20 @@ export interface BookData {
 }
 
 export interface BookProps {
-  data: BookData;
+  bookData: BookData;
   displayGetMore: boolean;
   children?: ReactNode;
 }
 
-export interface ListsDropdownProps {
-  items: ListProps[];
-}
+// export interface ListsDropdownProps {
+//   items: ListProps[];
+// }
 
-export interface ListProps {
-  id: string;
-  name: string;
-  userId: string;
-}
+// export interface ListProps {
+//   id: string;
+//   name: string;
+//   userId: string;
+// }
 
 export interface Result {
   kind: string;

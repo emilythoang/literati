@@ -27,24 +27,24 @@ model Account {
 }
 
 model Author {
-  id   String @id
-  name String @db.VarChar(255)
-  Book Book[]
+  id    String @id
+  name  String @db.VarChar(255)
+  books Book[]
 }
 
 model Book {
-  title  String   @db.VarChar(255)
-  isbn   String   @id @db.VarChar(255)
-  image  String   @db.VarChar(255)
-  Author Author[]
-  List   List[]
+  title   String   @db.VarChar(255)
+  isbn    String   @id @db.VarChar(255)
+  image   String   @db.VarChar(255)
+  authors Author[]
+  lists   List[]
 }
 
 model List {
   id     String @id @default(cuid())
   name   String @db.VarChar(255)
   user   User   @relation(fields: [userId], references: [id])
-  Book   Book[]
+  books  Book[]
   userId String
 }
 

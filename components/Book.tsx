@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { BookProps } from '@/types';
 
 export default function Book({
-  data,
+  bookData,
   displayGetMore = false,
   children,
 }: BookProps) {
@@ -18,7 +18,7 @@ export default function Book({
     pageCount = null,
     categories = null,
     amazon = null,
-  } = data;
+  } = bookData;
   return (
     <div>
       <h1>{title}</h1>
