@@ -1,11 +1,12 @@
 'use client';
 import { List } from '@prisma/client';
-
+import { SyntheticEvent } from 'react';
 import { Library } from 'lucide-react';
 import { DropdownMenuCheckboxItemProps } from '@radix-ui/react-dropdown-menu';
 import { Dispatch, useState, SetStateAction } from 'react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import { prisma } from '@/db';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -17,7 +18,7 @@ import { BookData } from '@/types';
 type Checked = DropdownMenuCheckboxItemProps['checked'];
 
 interface CheckedLists {
-  [index: string]: boolean;
+  [index: string]: Checked;
 }
 
 export default function Dropdown({
@@ -27,21 +28,52 @@ export default function Dropdown({
   items: List[];
   bookData: BookData;
 }) {
-  const [showStatusBar, setShowStatusBar] = useState<Checked>(true);
-  const [showActivityBar, setShowActivityBar] = useState<Checked>(false);
-  const [showPanel, setShowPanel] = useState<Checked>(false);
   const [checkedLists, setCheckedLists] = useState<CheckedLists>(
     {} as CheckedLists
   );
+  console.log('checkedLists in item ', checkedLists);
+  // const router = useRouter();
+
+  const handleCheck = async (id: string) => {
+    console.log(`id is ${id}`);
+    const params = new URLSearchParams();
+    params.set('isbn', bookData.isbn);
+    const urlParams = params.toString();
+    const listChecked = checkedLists[id];
+    console.log('listChecked in handleCheck ', listChecked);
+    if (listChecked) {
+      // remove book from bookshelf
+      await fetch(`/api/bookshelves/${id}/books?${urlParams}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookData),
+      });
+    } else {
+      // add book to bookshelf
+      await fetch(`/api/bookshelves/${id}/books?${urlParams}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookData),
+      });
+    }
+    const updatedState = { ...checkedLists, [id]: !listChecked };
+    console.log(`updatedState is ${JSON.stringify(updatedState)}`);
+    setCheckedLists(updatedState);
+    // router.refresh();
+  };
+
   const lists = items.map((list: List) => {
-    checkedLists[list.id] = false;
     return (
       <Item
         key={list.id}
         id={list.id}
         name={list.name}
         checkedLists={checkedLists}
-        setCheckedLists={setCheckedLists}
+        handleCheck={handleCheck}
         book={bookData}
       />
     );
@@ -53,30 +85,11 @@ export default function Dropdown({
         <DropdownMenuTrigger asChild>
           <Button variant="outline">
             <Library />
+            {JSON.stringify(checkedLists)}
             Add book to list
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56">
-          {lists}
-          <DropdownMenuCheckboxItem
-            checked={showStatusBar}
-            onCheckedChange={setShowStatusBar}
-          >
-            Status Bar
-          </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem
-            checked={showActivityBar}
-            onCheckedChange={setShowActivityBar}
-          >
-            Activity Bar
-          </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem
-            checked={showPanel}
-            onCheckedChange={setShowPanel}
-          >
-            Panel
-          </DropdownMenuCheckboxItem>
-        </DropdownMenuContent>
+        <DropdownMenuContent className="w-56">{lists}</DropdownMenuContent>
       </DropdownMenu>
     </>
   );
@@ -86,54 +99,19 @@ function Item({
   name,
   id,
   checkedLists,
-  setCheckedLists,
+  handleCheck,
   book,
 }: {
   name: string;
   id: string;
   checkedLists: CheckedLists;
-  setCheckedLists: Dispatch<SetStateAction<CheckedLists>>;
+  handleCheck: (id: string) => void;
   book: BookData;
 }) {
-  const router = useRouter();
-
-  const handleCheck = async () => {
-    const params = new URLSearchParams();
-    params.set('isbn', book.isbn);
-    const urlParams = params.toString();
-    console.log(urlParams);
-    console.log(book);
-    const listChecked = checkedLists[id];
-    // if (listChecked) {
-    //   // remove book from bookshelf
-    //   await fetch(`/api/bookshelves/${id}/books?${urlParams}`, {
-    //     method: 'DELETE',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(book),
-    //   });
-    // } else {
-    // add book to bookshelf
-    await fetch(`/api/bookshelves/${id}/books?${urlParams}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(book),
-    });
-    // }
-
-    const updatedListsChecked = { ...checkedLists };
-    updatedListsChecked[id] = !listChecked;
-    setCheckedLists(updatedListsChecked);
-    router.refresh();
-  };
-
   return (
     <DropdownMenuCheckboxItem
       checked={checkedLists[id]}
-      onCheckedChange={handleCheck}
+      onCheckedChange={() => handleCheck(id)}
     >
       {name}
     </DropdownMenuCheckboxItem>

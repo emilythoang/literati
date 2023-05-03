@@ -12,6 +12,38 @@ import { NextResponse } from 'next/server';
 //   return new Response(null, { status: 200 });
 // }
 
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    console.log('error');
+    return new Response('You must be the owner to update bookshelves', {
+      status: 403,
+    });
+  }
+  //   const { searchParams } = new URL(request.url);
+  //   const isbn = searchParams.get('isbn');
+  //   let book = await request.json();
+  const items = await prisma.list.findMany({
+    where: { userId: session.user.id },
+  });
+  const initialChecks = {};
+  for (let item of items) {
+    const included = await prisma.list.findMany({
+      where: {
+        id: item.id,
+      },
+      select: {
+        books: true,
+      },
+    });
+    console.log(JSON.stringify(included));
+  }
+  return NextResponse.json(initialChecks);
+}
+
 export async function POST(
   request: Request,
   { params }: { params: { id: string } }
@@ -53,7 +85,7 @@ export async function POST(
       },
     },
   });
-  return new Response(null, { status: 200 });
+  return NextResponse.json(updatedList);
 }
 
 export async function DELETE({
@@ -70,13 +102,22 @@ export async function DELETE({
       status: 403,
     });
   }
-  const id = params.id;
-  let res = await request.json();
-  const book = res.book;
-  await prisma.list.delete({
+  const { searchParams } = new URL(request.url);
+  const isbn = searchParams.get('isbn');
+  let book = await request.json();
+  const updatedList = await prisma.list.update({
     where: {
-      id,
+      id: params.id,
+    },
+    data: {
+      books: {
+        disconnect: [
+          {
+            isbn: book.isbn,
+          },
+        ],
+      },
     },
   });
-  return new Response(null, { status: 200 });
+  return NextResponse.json(updatedList);
 }
