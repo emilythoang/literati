@@ -100,29 +100,29 @@ function Item({
   const handleCheck = async () => {
     const params = new URLSearchParams();
     params.set('isbn', book.isbn);
-    console.log(book.isbn);
     const urlParams = params.toString();
-
+    console.log(urlParams);
+    console.log(book);
     const listChecked = checkedLists[id];
-    if (listChecked) {
-      // remove book from bookshelf
-      await fetch(`/api/bookshelves/${id}/books?${urlParams}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(book),
-      });
-    } else {
-      // add book to bookshelf
-      await fetch(`/api/bookshelves/${id}/books?${urlParams}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(book),
-      });
-    }
+    // if (listChecked) {
+    //   // remove book from bookshelf
+    //   await fetch(`/api/bookshelves/${id}/books?${urlParams}`, {
+    //     method: 'DELETE',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(book),
+    //   });
+    // } else {
+    // add book to bookshelf
+    await fetch(`/api/bookshelves/${id}/books?${urlParams}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(book),
+    });
+    // }
 
     const updatedListsChecked = { ...checkedLists };
     updatedListsChecked[id] = !listChecked;

@@ -25,20 +25,31 @@ export async function POST(
   }
   const { searchParams } = new URL(request.url);
   const isbn = searchParams.get('isbn');
-  let res = await request.json();
-  const book = res.book;
-  console.log(book);
+  let book = await request.json();
   const updatedList = await prisma.list.update({
     where: {
       id: params.id,
     },
     data: {
       books: {
-        create: {
-          title: 'test',
-          isbn: '123',
-          image: 'blah blah',
-        },
+        connectOrCreate: [
+          {
+            create: {
+              title: book.title,
+              isbn: book.isbn,
+              image: book.image,
+              authors: {
+                connectOrCreate: book.authors?.map((author: string) => ({
+                  where: { name: author },
+                  create: { name: author },
+                })),
+              },
+            },
+            where: {
+              isbn: book.isbn,
+            },
+          },
+        ],
       },
     },
   });
