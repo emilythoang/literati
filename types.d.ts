@@ -27,6 +27,10 @@ export interface BookProps {
 //   userId: string;
 // }
 
+export interface CheckedLists {
+  [index: string]: Checked;
+}
+
 export interface Result {
   kind: string;
   id: string;

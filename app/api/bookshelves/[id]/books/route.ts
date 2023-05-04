@@ -2,6 +2,7 @@ import { prisma } from '@/db';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { NextResponse } from 'next/server';
+import { CheckedLists } from '@/types';
 
 // export async function (request: Request) {
 //   const { searchParams } = new URL(request.url);
@@ -23,25 +24,26 @@ export async function GET(
       status: 403,
     });
   }
-  //   const { searchParams } = new URL(request.url);
-  //   const isbn = searchParams.get('isbn');
-  //   let book = await request.json();
-  const items = await prisma.list.findMany({
-    where: { userId: session.user.id },
-  });
-  const initialChecks = {};
-  for (let item of items) {
-    const included = await prisma.list.findMany({
-      where: {
-        id: item.id,
-      },
-      select: {
-        books: true,
-      },
+  const { searchParams } = new URL(request.url);
+  const isbn = searchParams.get('isbn');
+  if (!isbn)
+    return new Response('Book must be selected', {
+      status: 400,
     });
-    console.log(JSON.stringify(included));
-  }
-  return NextResponse.json(initialChecks);
+  const included = await prisma.list.findFirst({
+    where: {
+      userId: session.user.id,
+      id: params.id,
+    },
+    select: {
+      books: {
+        where: {
+          isbn: isbn,
+        },
+      },
+    },
+  });
+  return NextResponse.json((included?.books.length || 0) > 0);
 }
 
 export async function POST(

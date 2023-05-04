@@ -3,7 +3,7 @@ import { List } from '@prisma/client';
 import { SyntheticEvent } from 'react';
 import { Library } from 'lucide-react';
 import { DropdownMenuCheckboxItemProps } from '@radix-ui/react-dropdown-menu';
-import { Dispatch, useState, SetStateAction } from 'react';
+import { Dispatch, useState, SetStateAction, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { prisma } from '@/db';
@@ -14,12 +14,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { BookData } from '@/types';
-
+import { CheckedLists } from '@/types';
 type Checked = DropdownMenuCheckboxItemProps['checked'];
-
-interface CheckedLists {
-  [index: string]: Checked;
-}
 
 export default function Dropdown({
   items,
@@ -28,11 +24,30 @@ export default function Dropdown({
   items: List[];
   bookData: BookData;
 }) {
-  const [checkedLists, setCheckedLists] = useState<CheckedLists>(
-    {} as CheckedLists
-  );
-  console.log('checkedLists in item ', checkedLists);
-  // const router = useRouter();
+  const getInitialState = async () => {
+    const initialChecks: CheckedLists = {};
+    const params = new URLSearchParams();
+    params.set('isbn', bookData.isbn);
+    const urlParams = params.toString();
+    for (let item of items) {
+      const res = await fetch(`/api/bookshelves/${item.id}/books?${urlParams}`);
+      const check = await res.json();
+      initialChecks[item.id] = check;
+    }
+    return initialChecks;
+  };
+  const [checkedLists, setCheckedLists] = useState<CheckedLists>({});
+  useEffect(() => {
+    let ignore = false;
+    getInitialState().then((result) => {
+      if (!ignore) {
+        setCheckedLists(result);
+      }
+    });
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const handleCheck = async (id: string) => {
     console.log(`id is ${id}`);
