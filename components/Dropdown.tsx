@@ -1,12 +1,8 @@
 'use client';
 import { List } from '@prisma/client';
-import { SyntheticEvent } from 'react';
 import { Library } from 'lucide-react';
-import { DropdownMenuCheckboxItemProps } from '@radix-ui/react-dropdown-menu';
-import { Dispatch, useState, SetStateAction, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
-import { prisma } from '@/db';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -15,7 +11,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { BookData } from '@/types';
 import { CheckedLists } from '@/types';
-type Checked = DropdownMenuCheckboxItemProps['checked'];
 
 export default function Dropdown({
   items,
@@ -50,12 +45,10 @@ export default function Dropdown({
   }, []);
 
   const handleCheck = async (id: string) => {
-    console.log(`id is ${id}`);
     const params = new URLSearchParams();
     params.set('isbn', bookData.isbn);
     const urlParams = params.toString();
     const listChecked = checkedLists[id];
-    console.log('listChecked in handleCheck ', listChecked);
     if (listChecked) {
       // remove book from bookshelf
       await fetch(`/api/bookshelves/${id}/books?${urlParams}`, {
@@ -63,7 +56,6 @@ export default function Dropdown({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(bookData),
       });
     } else {
       // add book to bookshelf
@@ -76,9 +68,7 @@ export default function Dropdown({
       });
     }
     const updatedState = { ...checkedLists, [id]: !listChecked };
-    console.log(`updatedState is ${JSON.stringify(updatedState)}`);
     setCheckedLists(updatedState);
-    // router.refresh();
   };
 
   const lists = items.map((list: List) => {

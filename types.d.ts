@@ -17,15 +17,7 @@ export interface BookProps {
   children?: ReactNode;
 }
 
-// export interface ListsDropdownProps {
-//   items: ListProps[];
-// }
-
-// export interface ListProps {
-//   id: string;
-//   name: string;
-//   userId: string;
-// }
+type Checked = DropdownMenuCheckboxItemProps['checked'];
 
 export interface CheckedLists {
   [index: string]: Checked;

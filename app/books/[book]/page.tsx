@@ -1,7 +1,6 @@
 import { BookWrapper } from '@/components/BookWrapper';
 
 async function getData(isbn: string) {
-  console.log(isbn);
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/books/${isbn}`);
   if (!res.ok) {
     throw new Error('Failed to fetch data');

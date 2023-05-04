@@ -2,16 +2,6 @@ import { prisma } from '@/db';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { NextResponse } from 'next/server';
-import { CheckedLists } from '@/types';
-
-// export async function (request: Request) {
-//   const { searchParams } = new URL(request.url);
-//   const isbn = searchParams.get('isbn');
-
-//   //   const data = await res.json();
-//   //   const book = data.items[0]['volumeInfo'];
-//   return new Response(null, { status: 200 });
-// }
 
 export async function GET(
   request: Request,
@@ -90,13 +80,10 @@ export async function POST(
   return NextResponse.json(updatedList);
 }
 
-export async function DELETE({
-  request,
-  params,
-}: {
-  request: Request;
-  params: { id: string; isbn: string };
-}) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   const session = await getServerSession(authOptions);
   if (!session) {
     console.log('error');
@@ -106,7 +93,10 @@ export async function DELETE({
   }
   const { searchParams } = new URL(request.url);
   const isbn = searchParams.get('isbn');
-  let book = await request.json();
+  if (!isbn)
+    return new Response('Book must be selected', {
+      status: 400,
+    });
   const updatedList = await prisma.list.update({
     where: {
       id: params.id,
@@ -115,7 +105,7 @@ export async function DELETE({
       books: {
         disconnect: [
           {
-            isbn: book.isbn,
+            isbn: isbn,
           },
         ],
       },

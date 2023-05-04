@@ -15,7 +15,6 @@ export async function PATCH(
     });
   }
   const id = params.id;
-  console.log(id);
   const updatedName = await request.json();
   const updatedList = await prisma.list.update({
     where: {
