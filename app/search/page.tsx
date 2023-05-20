@@ -10,7 +10,9 @@ async function getData(query: string) {
   }
   const data = await res.json();
   const results = data.map((bookData: BookData) => {
-    return <Book data={bookData} key={bookData.isbn} displayGetMore={true} />;
+    return (
+      <Book bookData={bookData} key={bookData.isbn} displayGetMore={true} />
+    );
   });
   return results;
 }

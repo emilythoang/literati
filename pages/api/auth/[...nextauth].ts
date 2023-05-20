@@ -7,6 +7,11 @@ import { prisma } from '@/db';
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
+  pages: {
+    signIn: '/signin',
+    signOut: '/signout',
+    error: '/auth/error', // Error code passed in query string as ?error=
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,

@@ -4,6 +4,7 @@ import AuthContext from './(auth)/AuthContext';
 import NavBar from '@/components/NavBar';
 import SearchBar from '@/components/SearchBar';
 import Footer from '@/components/Footer';
+import { Toaster } from '@/components/Toaster';
 import { Inter } from 'next/font/google';
 
 export const metadata = {
@@ -26,6 +27,7 @@ export default function RootLayout({
         <AuthContext>
           <NavBar />
           <SearchBar />
+          <Toaster />
           {children}
           <Footer />
         </AuthContext>

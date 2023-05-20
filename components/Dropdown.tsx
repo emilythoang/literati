@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { BookData } from '@/types';
 import { CheckedLists } from '@/types';
+import { useToast } from '@/components/ui/use-toast';
 
 export default function Dropdown({
   items,
@@ -32,6 +33,7 @@ export default function Dropdown({
     return initialChecks;
   };
   const [checkedLists, setCheckedLists] = useState<CheckedLists>({});
+
   useEffect(() => {
     let ignore = false;
     getInitialState().then((result) => {
@@ -43,6 +45,8 @@ export default function Dropdown({
       ignore = true;
     };
   }, []);
+
+  const { toast } = useToast();
 
   const handleCheck = async (id: string) => {
     const params = new URLSearchParams();
@@ -57,6 +61,9 @@ export default function Dropdown({
           'Content-Type': 'application/json',
         },
       });
+      toast({
+        description: 'The book has been successfully removed from your shelf.',
+      });
     } else {
       // add book to bookshelf
       await fetch(`/api/bookshelves/${id}/books?${urlParams}`, {
@@ -65,6 +72,9 @@ export default function Dropdown({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(bookData),
+      });
+      toast({
+        description: 'The book has been successfully added to your shelf.',
       });
     }
     const updatedState = { ...checkedLists, [id]: !listChecked };
