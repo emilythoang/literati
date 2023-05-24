@@ -3,12 +3,12 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { prisma } from '@/db';
 import CreateList from '@/components/CreateList';
 import List from './List';
+
 import { List as ListType } from '@prisma/client';
 
 const fetchShelves = async () => {
   const session = await getServerSession(authOptions);
   if (!session) {
-    console.log('You must be logged in to have lists');
     return;
   }
   const data = await prisma.list.findMany({

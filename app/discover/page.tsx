@@ -17,5 +17,9 @@ async function getData() {
 
 export default async function Page() {
   const books = await getData();
-  return <div>{books}</div>;
+  return (
+    <div className="m-4 grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+      {books}
+    </div>
+  );
 }

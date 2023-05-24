@@ -15,6 +15,11 @@ const nextConfig = {
         hostname: 'storage.googleapis.com',
         pathname: '/du-prd/books/images/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        pathname: '/**',
+      },
     ],
   },
 };

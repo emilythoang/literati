@@ -2,13 +2,20 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useToast } from '@/components/ui/use-toast';
+import { getSession } from 'next-auth/react';
 
 export default function CreateList() {
+  const { toast } = useToast();
   const router = useRouter();
   const [list, setList] = useState('');
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
+      const session = await getSession();
+      if (!session) {
+        throw new Error('You must be logged in to create a list.');
+      }
       const body = { list };
       await fetch(`/api/bookshelves`, {
         method: 'POST',
@@ -18,7 +25,9 @@ export default function CreateList() {
       setList('');
       router.refresh();
     } catch (error) {
-      console.error(error);
+      toast({
+        description: (error as Error).message,
+      });
     }
   }
 
