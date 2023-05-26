@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { Result } from '@/types';
+import { Result, VolumeInfo } from '@/types';
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get('query');
@@ -8,13 +8,14 @@ export async function GET(request: Request) {
   }
   const params = encodeURIComponent(query);
   const link = `https://www.googleapis.com/books/v1/volumes?q=${params}&key=${process.env.BOOKS_API_KEY}`;
+
   let res = await fetch(link);
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
   const data = await res.json();
   const results = data.items.map((result: Result) => {
-    const book = result.volumeInfo;
+    const book: VolumeInfo = result.volumeInfo;
     const {
       title,
       authors,
@@ -35,7 +36,7 @@ export async function GET(request: Request) {
       authors: authors,
       isbn: isbn,
       description: description,
-      image: imageLinks.thumbnail,
+      image: imageLinks?.thumbnail,
       publishedDate: publishedDate,
       categories: categories,
     };

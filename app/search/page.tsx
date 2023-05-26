@@ -10,6 +10,7 @@ async function getData(query: string) {
   }
   const data = await res.json();
   const results = data.map((bookData: BookData) => {
+    console.log(bookData.image);
     return (
       <HorizontalBook
         key={bookData.isbn}
