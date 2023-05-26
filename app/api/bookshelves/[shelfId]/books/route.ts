@@ -20,7 +20,7 @@ export async function GET(
     return new Response('Book must be selected', {
       status: 400,
     });
-  const included = await prisma.list.findFirst({
+  const included = await prisma.bookshelf.findFirst({
     where: {
       userId: session.user.id,
       id: params.id,
@@ -38,7 +38,7 @@ export async function GET(
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { shelfId: string } }
 ) {
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -50,9 +50,9 @@ export async function POST(
   const { searchParams } = new URL(request.url);
   const isbn = searchParams.get('isbn');
   let book = await request.json();
-  const updatedList = await prisma.list.update({
+  const updatedShelf = await prisma.bookshelf.update({
     where: {
-      id: params.id,
+      id: params.shelfId,
     },
     data: {
       books: {
@@ -65,7 +65,7 @@ export async function POST(
               authors: {
                 connectOrCreate: book.authors?.map((author: string) => ({
                   where: { name: author },
-                  create: { name: author },
+                  create: { name: author, id: author },
                 })),
               },
             },
@@ -77,12 +77,12 @@ export async function POST(
       },
     },
   });
-  return NextResponse.json(updatedList);
+  return NextResponse.json(updatedShelf);
 }
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { shelfId: string } }
 ) {
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -97,9 +97,9 @@ export async function DELETE(
     return new Response('Book must be selected', {
       status: 400,
     });
-  const updatedList = await prisma.list.update({
+  const updatedShelf = await prisma.bookshelf.update({
     where: {
-      id: params.id,
+      id: params.shelfId,
     },
     data: {
       books: {
@@ -111,5 +111,5 @@ export async function DELETE(
       },
     },
   });
-  return NextResponse.json(updatedList);
+  return NextResponse.json(updatedShelf);
 }

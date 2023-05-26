@@ -1,5 +1,6 @@
 import { BookData } from '@/types';
-import Book from '@/components/Book';
+// import Book from '@/components/VerticalBook';
+import VerticalBook from '@/components/VerticalBook';
 
 async function getData() {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/discover`);
@@ -8,9 +9,7 @@ async function getData() {
   }
   const data = await res.json();
   const books = data.map((bookData: BookData) => {
-    return (
-      <Book bookData={bookData} key={bookData.isbn} displayGetMore={true} />
-    );
+    return <VerticalBook bookData={bookData} key={bookData.isbn} />;
   });
   return books;
 }
@@ -18,7 +17,7 @@ async function getData() {
 export default async function Page() {
   const books = await getData();
   return (
-    <div className="m-4 grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+    <div className="m-4 grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-5">
       {books}
     </div>
   );

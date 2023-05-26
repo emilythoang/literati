@@ -16,7 +16,7 @@ export async function PATCH(
   }
   const id = params.id;
   const updatedName = await request.json();
-  const updatedList = await prisma.list.update({
+  const updatedShelf = await prisma.bookshelf.update({
     where: {
       id,
     },
@@ -24,7 +24,7 @@ export async function PATCH(
       name: updatedName,
     },
   });
-  return NextResponse.json(updatedList);
+  return NextResponse.json(updatedShelf);
 }
 
 export async function DELETE({ params }: { params: { id: string } }) {
@@ -36,7 +36,7 @@ export async function DELETE({ params }: { params: { id: string } }) {
     });
   }
   const id = params.id;
-  await prisma.list.delete({
+  await prisma.bookshelf.delete({
     where: {
       id,
     },

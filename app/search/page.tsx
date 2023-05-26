@@ -1,5 +1,5 @@
 import { BookData } from '@/types';
-import Book from '@/components/Book';
+import HorizontalBook from '@/components/HorizontalBook';
 
 async function getData(query: string) {
   const res = await fetch(
@@ -11,7 +11,11 @@ async function getData(query: string) {
   const data = await res.json();
   const results = data.map((bookData: BookData) => {
     return (
-      <Book bookData={bookData} key={bookData.isbn} displayGetMore={true} />
+      <HorizontalBook
+        key={bookData.isbn}
+        bookData={bookData}
+        condensed={true}
+      />
     );
   });
   return results;

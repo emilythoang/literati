@@ -7,18 +7,15 @@ import { FaUserCircle } from 'react-icons/fa';
 
 export default function User() {
   const { data: session } = useSession();
-  console.log(session);
   if (session) {
     const image = session.user.image;
-    console.log(image);
     return (
       <>
         <Link href="api/auth/signout">Sign Out</Link>
-        <p>Signed in as {JSON.stringify(session)}</p>
         <Avatar>
           <AvatarImage
             className="h-full w-full rounded-[inherit] object-cover"
-            src={image ? image : ''}
+            src={image}
             alt="avatar"
           />
           <AvatarFallback>

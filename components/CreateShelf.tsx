@@ -5,24 +5,24 @@ import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 import { getSession } from 'next-auth/react';
 
-export default function CreateList() {
+export default function CreateShelf() {
   const { toast } = useToast();
   const router = useRouter();
-  const [list, setList] = useState('');
+  const [shelf, setShelf] = useState('');
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
       const session = await getSession();
       if (!session) {
-        throw new Error('You must be logged in to create a list.');
+        throw new Error('You must be logged in to create a shelf.');
       }
-      const body = { list };
+      const body = { shelf };
       await fetch(`/api/bookshelves`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      setList('');
+      setShelf('');
       router.refresh();
     } catch (error) {
       toast({
@@ -33,16 +33,16 @@ export default function CreateList() {
 
   return (
     <form className="" onSubmit={handleSubmit}>
-      <h2>Add List</h2>
+      <h2>Add shelf</h2>
       <label>
         Name
         <br />
         <input
           type="text"
           name="bookshelf"
-          value={list}
+          value={shelf}
           onChange={(e) => {
-            setList(e.target.value);
+            setShelf(e.target.value);
           }}
           required
         />

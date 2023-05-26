@@ -8,13 +8,12 @@ export interface BookData {
   publishedDate?: string | null;
   pageCount?: number | null;
   categories?: string[] | null;
-  amazon?: string | null;
+  amazon?: string;
 }
 
 export interface BookProps {
   bookData: BookData;
-  displayGetMore: boolean;
-  children?: ReactNode;
+  condensed: boolean;
 }
 
 type Checked = DropdownMenuCheckboxItemProps['checked'];
