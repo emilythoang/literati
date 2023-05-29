@@ -16,6 +16,7 @@ export async function GET(request: Request) {
   const data = await res.json();
   const results = data.items.map((result: Result) => {
     const book: VolumeInfo = result.volumeInfo;
+
     const {
       title,
       authors,

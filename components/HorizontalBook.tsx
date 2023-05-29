@@ -9,6 +9,7 @@ import {
 import DropdownWrapper from '@/components/DropdownWrapper';
 import Image from 'next/image';
 import { BookData, BookProps } from '@/types';
+import { Badge } from './ui/badge';
 
 export default function HorizontalBook({ bookData, condensed }: BookProps) {
   const {
@@ -38,7 +39,11 @@ export default function HorizontalBook({ bookData, condensed }: BookProps) {
             {publishedDate ? <p>Published {publishedDate}</p> : ''}
             <p>{description}</p>
             {pageCount ? <p>{pageCount}</p> : ''}
-            {categories ? <p>{categories}</p> : ''}
+            {categories
+              ? categories.map((category) => (
+                  <Badge key={category}>{category}</Badge>
+                ))
+              : ''}
             <CardFooter className="flex justify-between">
               {/* @ts-expect-error Async Server Component */}
               <DropdownWrapper bookData={bookData} />

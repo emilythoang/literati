@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { shelfId: string } }
 ) {
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -14,7 +14,7 @@ export async function PATCH(
       status: 403,
     });
   }
-  const id = params.id;
+  const id = params.shelfId;
   const updatedName = await request.json();
   const updatedShelf = await prisma.bookshelf.update({
     where: {
@@ -27,7 +27,10 @@ export async function PATCH(
   return NextResponse.json(updatedShelf);
 }
 
-export async function DELETE({ params }: { params: { id: string } }) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: { shelfId: string } }
+) {
   const session = await getServerSession(authOptions);
   if (!session) {
     console.log('error');
@@ -35,7 +38,7 @@ export async function DELETE({ params }: { params: { id: string } }) {
       status: 403,
     });
   }
-  const id = params.id;
+  const id = params.shelfId;
   await prisma.bookshelf.delete({
     where: {
       id,
