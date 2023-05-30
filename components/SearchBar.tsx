@@ -1,6 +1,9 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Input } from '@/components/ui/input';
+import { Button } from './ui/button';
+import { RxMagnifyingGlass } from 'react-icons/rx';
 
 export default function SearchBar() {
   const router = useRouter();
@@ -14,8 +17,12 @@ export default function SearchBar() {
     setQuery('');
   };
   return (
-    <form role="search" onSubmit={handleSubmit}>
-      <input
+    <form
+      role="search"
+      onSubmit={handleSubmit}
+      className="flex w-full max-w-sm items-center space-x-2"
+    >
+      <Input
         type="search"
         id="search"
         name="search"
@@ -24,7 +31,9 @@ export default function SearchBar() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-      <button type="submit">Search</button>
+      <Button type="submit">
+        <RxMagnifyingGlass className="mr-2 h-4 w-4" /> Search
+      </Button>
     </form>
   );
 }

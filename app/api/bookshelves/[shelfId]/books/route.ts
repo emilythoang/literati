@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { shelfId: string } }
 ) {
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -23,7 +23,7 @@ export async function GET(
   const included = await prisma.bookshelf.findFirst({
     where: {
       userId: session.user.id,
-      id: params.id,
+      id: params.shelfId,
     },
     select: {
       books: {

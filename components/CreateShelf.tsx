@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 import { getSession } from 'next-auth/react';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
+import { Label } from './ui/label';
 
 export default function CreateShelf() {
   const { toast } = useToast();
@@ -32,24 +35,25 @@ export default function CreateShelf() {
   }
 
   return (
-    <form className="" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <h2>Add shelf</h2>
-      <label>
-        Name
-        <br />
-        <input
-          type="text"
-          name="bookshelf"
-          value={shelf}
-          onChange={(e) => {
-            setShelf(e.target.value);
-          }}
-          required
-        />
-      </label>
+      <Label htmlFor="bookshelf">Name</Label>
+      <Input
+        type="text"
+        id="bookshelf"
+        name="bookshelf"
+        value={shelf}
+        onChange={(e) => {
+          setShelf(e.target.value);
+        }}
+        required
+      />
+
       <div className="">
-        <input type="submit" value="Submit" />
-        <Link href="/profile">Cancel</Link>
+        <Button type="reset" variant="outline">
+          Cancel
+        </Button>
+        <Button type="submit">Submit</Button>
       </div>
     </form>
   );
