@@ -15,13 +15,13 @@ export async function PATCH(
     });
   }
   const id = params.shelfId;
-  const updatedName = await request.json();
+  const { name } = await request.json();
   const updatedShelf = await prisma.bookshelf.update({
     where: {
       id,
     },
     data: {
-      name: updatedName,
+      name,
     },
   });
   return NextResponse.json(updatedShelf);

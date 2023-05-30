@@ -1,8 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { useState } from 'react';
+import { FormEvent, useState, ChangeEvent } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -12,7 +11,6 @@ import {
   DialogTrigger,
   DialogFooter,
 } from '@/components/ui/dialog';
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,75 +27,84 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 export default function Shelf({ id, name }: { id: string; name: string }) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [updatedName, setUpdatedName] = useState('');
+  const [showEditDialog, setShowEditDialog] = useState(false);
   const router = useRouter();
+  const [form, setForm] = useState({
+    name: name,
+  });
 
-  async function editShelf(shelfId: string): Promise<void> {
-    if (isEditing) {
-      await fetch(`/api/bookshelves/${shelfId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedName),
-      });
-      setIsEditing(false);
-      setUpdatedName('');
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setForm({
+      ...form,
+      [event.target.id]: event.target.value,
+    });
+  };
+
+  const handleEditShelf = async (
+    event: FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    event.preventDefault();
+    const response = await fetch(`/api/bookshelves/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form),
+    });
+    if (response) {
+      setShowEditDialog(false);
       router.refresh();
-    } else {
-      setIsEditing(true);
     }
-  }
+  };
 
-  async function deleteShelf(shelfId: string): Promise<void> {
-    await fetch(`/api/bookshelves/${shelfId}`, {
+  const deleteShelf = async (id: string): Promise<void> => {
+    await fetch(`/api/bookshelves/${id}`, {
       method: 'DELETE',
     });
     router.refresh();
-  }
+  };
+
   return (
     <div>
       {name}
       <>
-        <Dialog open={isEditing}>
+        <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
           <DialogTrigger asChild>
-            <Button variant="outline" onClick={() => editShelf(id)}>
+            <Button type="button" variant="outline">
               Edit
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Edit shelf</DialogTitle>
-              <DialogDescription>
-                Make changes to your shelf here. Click save when you're done.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
-                  Name
-                </Label>
-                <Input
-                  id="name"
-                  placeholder={name}
-                  value={updatedName}
-                  onChange={(e) => setUpdatedName(e.target.value)}
-                  className="col-span-3"
-                />
+            <form onSubmit={handleEditShelf}>
+              <DialogHeader>
+                <DialogTitle>Edit shelf</DialogTitle>
+                <DialogDescription>
+                  Make changes to your shelf here. Click save when you're done.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="name" className="text-right">
+                    Name
+                  </Label>
+                  <Input
+                    id="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    className="col-span-3"
+                  />
+                </div>
               </div>
-            </div>
-            <DialogFooter>
-              <Button type="submit" onClick={() => editShelf(id)}>
-                Save changes
-              </Button>
-            </DialogFooter>
+              <DialogFooter>
+                <Button type="submit">Save changes</Button>
+              </DialogFooter>
+            </form>
           </DialogContent>
         </Dialog>
       </>
       <>
         <AlertDialog>
-          <AlertDialogTrigger>
+          <AlertDialogTrigger asChild>
             <Button variant="outline">Delete</Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
