@@ -25,18 +25,15 @@ export default async function Bookshelf() {
   const bookshelves = await fetchShelves();
 
   return (
-    <div className="flex ">
-      <div>
-        <div className="space-y-1">
-          <CreateShelf />
-        </div>
+    <div className="flex flex-col sm:flex-row">
+      <div className="flex flex-col">
+        <CreateShelf />
         <Separator className="my-4" />
         {bookshelves}
       </div>
-      <div>
-        {/* @ts-expect-error Async Server Component */}
-        <BooksTable />
-      </div>
+      <Separator className="my-4" />
+      {/* @ts-expect-error Async Server Component */}
+      <BooksTable />
     </div>
   );
 }

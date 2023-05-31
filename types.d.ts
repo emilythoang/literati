@@ -92,7 +92,7 @@ export interface VolumeInfo {
   publisher: string;
   publishedDate: Date;
   description: string;
-  industryIdentifiers: IndustryIdentifier[];
+  industryIdentifiers?: IndustryIdentifier[];
   readingModes: ReadingModes;
   pageCount: number;
   printType: string;

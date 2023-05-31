@@ -26,7 +26,6 @@ export default function RootLayout({
       <body>
         <AuthContext>
           <NavBar />
-          <SearchBar />
           <Toaster />
           {children}
           <Footer />
