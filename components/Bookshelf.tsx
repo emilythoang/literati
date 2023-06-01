@@ -31,9 +31,6 @@ export default async function Bookshelf() {
         <Separator className="my-4" />
         {bookshelves}
       </div>
-      <Separator className="my-4" />
-      {/* @ts-expect-error Async Server Component */}
-      <BooksTable />
     </div>
   );
 }

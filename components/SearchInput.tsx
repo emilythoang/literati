@@ -24,7 +24,7 @@ export function SearchInput({
     <form
       role="search"
       onSubmit={handleSubmit}
-      className="flex w-full max-w-sm items-center space-x-2 "
+      className="flex w-full max-w-md items-center space-x-2"
     >
       <Input
         type="search"

@@ -36,12 +36,12 @@ export default function User() {
           <DropdownMenuContent className="w-56">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <Link href="/profile" className="flex w-full">
                 <LuUser className="mr-2 h-4 w-4" /> <span>Profile</span>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <Link href="api/auth/signout" className="flex w-full">
                 <LuLogOut className="mr-2 h-4 w-4" /> <span>Sign Out</span>
               </Link>

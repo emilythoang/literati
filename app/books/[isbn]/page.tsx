@@ -9,14 +9,13 @@ async function getData(isbn: string) {
   return data;
 }
 
-export default async function Page({ params }: { params: { book: string } }) {
-  const id = params.book;
-  const book = await getData(id);
-  if (!id) throw new Error('Invalid ISBN');
+export default async function Page({ params }: { params: { isbn: string } }) {
+  const book = await getData(params.isbn);
+  if (!params.isbn) throw new Error('Invalid ISBN');
   const bookData = {
     title: book.title,
     authors: book.authors,
-    isbn: id,
+    isbn: params.isbn,
     description: book.description,
     image: book.imageLinks.thumbnail,
     publishedDate: book.publishedDate,

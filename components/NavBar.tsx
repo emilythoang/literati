@@ -11,6 +11,7 @@ import Link from 'next/link';
 import User from './User';
 import { useState } from 'react';
 import { LuMenu } from 'react-icons/lu';
+import { GiBookshelf } from 'react-icons/gi';
 
 export default function NavBar() {
   return (
@@ -21,8 +22,11 @@ export default function NavBar() {
   );
 }
 
-const MobileNav = () => {
+export const MobileNav = () => {
   const [open, setOpen] = useState(false);
+  const navigate = () => {
+    setOpen(false);
+  };
   return (
     <div className="flex justify-between min-w-screen mx-4 mt-4 md:hidden">
       <Sheet open={open} onOpenChange={setOpen}>
@@ -30,13 +34,32 @@ const MobileNav = () => {
           <LuMenu className="w-10 h-10" />
         </SheetTrigger>
         <SheetContent position="left" size="full">
-          <SheetHeader>
-            <SheetTitle>Literati</SheetTitle>
+          <SheetHeader className="p-4">
+            <GiBookshelf className="w-10 h-10 " />
+            <SheetTitle className="text-6xl text-left">Literati</SheetTitle>
           </SheetHeader>
           <div className=" flex flex-col">
-            <Link href="/">Home</Link>
-            <Link href="/discover">Discover</Link>
-            <Link href="/profile">Profile</Link>
+            <Link
+              href="/"
+              className="text-2xl text-gray-600 p-4"
+              onClick={navigate}
+            >
+              Home
+            </Link>
+            <Link
+              href="/discover"
+              className="text-2xl text-gray-600 p-4"
+              onClick={navigate}
+            >
+              Discover
+            </Link>
+            <Link
+              href="/profile"
+              className="text-2xl text-gray-600 p-4"
+              onClick={navigate}
+            >
+              Profile
+            </Link>
           </div>
         </SheetContent>
       </Sheet>
@@ -48,15 +71,22 @@ const MobileNav = () => {
   );
 };
 
-const MainNav = () => {
+export const MainNav = () => {
   return (
-    <nav className="hidden justify-between mx-16 mt-4 md:flex">
-      <div className="flex">
-        <Link href="/">Home</Link>
-        <Link href="/discover">Discover</Link>
-        <Link href="/profile">Profile</Link>
+    <nav className="hidden justify-between items-center px-12 py-4 md:flex">
+      <div className="flex items-center gap-10">
+        <Link href="/" className="flex items-center text-lg">
+          <GiBookshelf className="w-10 h-10 mr-2" />
+          Literati
+        </Link>
+        <Link href="/discover" className="text-gray-600 text-lg">
+          Discover
+        </Link>
+        <Link href="/profile" className="text-gray-600 text-lg">
+          Profile
+        </Link>
       </div>
-      <div className="flex justify-between">
+      <div className="flex items-center gap-10">
         <SearchBar />
         <User />
       </div>

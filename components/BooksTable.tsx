@@ -1,53 +1,28 @@
 import { DataTable } from './ui/data-table';
-import { ColumnDef } from '@tanstack/react-table';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import { Book, columns } from './TableColumns';
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Book = {
-  image: string;
-  title: string;
-  authors: string[];
-  bookshelves: string[];
-};
-
-export const columns: ColumnDef<Book>[] = [
-  {
-    accessorKey: 'image',
-    header: 'Image',
-  },
-  {
-    accessorKey: 'title',
-    header: 'Title',
-  },
-  {
-    accessorKey: 'authors',
-    header: 'Authors',
-  },
-  {
-    accessorKey: 'bookshelves',
-    header: 'Bookshelves',
-  },
-];
-
-async function getData(): Promise<Book[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      image: '728ed52f',
-      title: 'title',
-      authors: ['author'],
-      bookshelves: ['bookshelf'],
-    },
-    // ...
-  ];
+async function getData(userId: string): Promise<Book[]> {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/user/${userId}`);
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  const data = await res.json();
+  console.log(data);
+  return data;
 }
 
 export default async function BooksTable() {
-  const data = await getData();
+  const session = await getServerSession(authOptions);
+  if (!session) return;
+  const userId = session.user.id;
+  const books = await getData(userId);
+  console.log(JSON.stringify(books));
 
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={books} />
     </div>
   );
 }

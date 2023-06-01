@@ -13,7 +13,7 @@ export default function SearchBar() {
           <SheetTrigger asChild>
             <LuSearch className=" mr-2 h-10 w-10 md:hidden" />
           </SheetTrigger>
-          <SheetContent position="top">
+          <SheetContent position="top" className="py-12">
             <SearchInput setShowSearch={setShowSearch} />
           </SheetContent>
         </Sheet>
