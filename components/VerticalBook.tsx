@@ -20,7 +20,7 @@ export default function VerticalBook({ bookData }: { bookData: BookData }) {
         <Image
           alt={title}
           src={image}
-          height={150}
+          height={250}
           width={150}
           style={{
             width: 'auto',

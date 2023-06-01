@@ -6,7 +6,6 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
-    console.log(session);
     if (!session) {
       return new Response('You must be logged in to create a shelf', {
         status: 403,

@@ -26,7 +26,7 @@ export default function HorizontalBook({ bookData, condensed }: BookProps) {
     <Card className="flex items-center justify-center p-2 lg:p-8">
       <CardContent className="flex-col items-center justify-between md:flex-row lg:gap-8">
         {image ? (
-          <Image alt={title} src={image} width={150} height={150}></Image>
+          <Image alt={title} src={image} width={150} height={250}></Image>
         ) : (
           <div className="w-[150px] h-[250px] flex justify-center items-center border">
             No image available

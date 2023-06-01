@@ -19,7 +19,7 @@ export default function User() {
   if (session) {
     const image = session.user.image;
     return (
-      <>
+      <div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar>
@@ -48,13 +48,13 @@ export default function User() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      </>
+      </div>
     );
   } else {
     return (
-      <>
+      <div className="flex items-center">
         <Link href="/api/auth/signin">Sign In</Link>
-      </>
+      </div>
     );
   }
 }

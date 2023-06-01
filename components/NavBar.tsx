@@ -28,7 +28,7 @@ export const MobileNav = () => {
     setOpen(false);
   };
   return (
-    <div className="flex justify-between min-w-screen mx-4 mt-4 md:hidden">
+    <div className="flex justify-between min-w-screen mx-4 my-2 md:hidden">
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <LuMenu className="w-10 h-10" />
@@ -36,7 +36,9 @@ export const MobileNav = () => {
         <SheetContent position="left" size="full">
           <SheetHeader className="p-4">
             <GiBookshelf className="w-10 h-10 " />
-            <SheetTitle className="text-6xl text-left">Literati</SheetTitle>
+            <SheetTitle className="text-6xl text-left font-bold">
+              Literati
+            </SheetTitle>
           </SheetHeader>
           <div className=" flex flex-col">
             <Link
@@ -73,10 +75,10 @@ export const MobileNav = () => {
 
 export const MainNav = () => {
   return (
-    <nav className="hidden justify-between items-center px-12 py-4 md:flex">
+    <nav className="hidden justify-between items-center mx-8 my-3 md:flex lg:mx-12">
       <div className="flex items-center gap-10">
-        <Link href="/" className="flex items-center text-lg">
-          <GiBookshelf className="w-10 h-10 mr-2" />
+        <Link href="/" className="flex items-center text-lg font-bold">
+          <GiBookshelf className="w-10 h-10 mr-2 " />
           Literati
         </Link>
         <Link href="/discover" className="text-gray-600 text-lg">
