@@ -23,14 +23,19 @@ export const columns: ColumnDef<Book>[] = [
   {
     accessorKey: 'image',
     header: 'Cover',
-    cell: ({ row }) => (
-      <Image
-        src={row.getValue('image')}
-        alt={row.getValue('title')}
-        width={100}
-        height={100}
-      />
-    ),
+    cell: ({ row }) =>
+      row.getValue('image') ? (
+        <Image
+          src={row.getValue('image')}
+          alt={row.getValue('title')}
+          width={100}
+          height={100}
+        />
+      ) : (
+        <div className="w-[150px] h-[250px] flex justify-center items-center border">
+          No image available
+        </div>
+      ),
   },
   {
     accessorKey: 'title',

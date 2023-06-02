@@ -4,10 +4,9 @@ import { Separator } from '@/components/ui/separator';
 
 export default async function Page() {
   return (
-    <div>
+    <div className="p-2 md:px-8 lg:px-12 justify-center flex flex-col gap-2 lg:flex-row">
       {/* @ts-expect-error Async Server Component */}
       <Bookshelf />
-      <Separator className="my-4" />
       {/* @ts-expect-error Async Server Component */}
       <BooksTable />
     </div>

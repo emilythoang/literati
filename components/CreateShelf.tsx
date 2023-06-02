@@ -35,24 +35,20 @@ export default function CreateShelf() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Add shelf</h2>
+      <h2>Create bookshelf</h2>
       <Label htmlFor="bookshelf">Name</Label>
-      <Input
-        type="text"
-        id="bookshelf"
-        name="bookshelf"
-        value={shelf}
-        onChange={(e) => {
-          setShelf(e.target.value);
-        }}
-        required
-      />
-
-      <div className="">
-        <Button type="reset" variant="outline">
-          Cancel
-        </Button>
-        <Button type="submit">Submit</Button>
+      <div className="flex w-full max-w-sm items-center space-x-2">
+        <Input
+          type="text"
+          id="bookshelf"
+          name="bookshelf"
+          value={shelf}
+          onChange={(e) => {
+            setShelf(e.target.value);
+          }}
+          required
+        />
+        <Button type="submit">Add</Button>
       </div>
     </form>
   );

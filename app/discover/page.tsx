@@ -1,5 +1,4 @@
 import { BookData } from '@/types';
-// import Book from '@/components/VerticalBook';
 import VerticalBook from '@/components/VerticalBook';
 
 async function getData() {
@@ -17,7 +16,7 @@ async function getData() {
 export default async function Page() {
   const books = await getData();
   return (
-    <div className="m-4 grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-5">
+    <div className="p-4 grid gap-4 sm:grid-cols-2 sm:gap-6 md:px-8 lg:grid-cols-3 lg:px-12 lg:gap-8 xl:grid-cols-5">
       {books}
     </div>
   );

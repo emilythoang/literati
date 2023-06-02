@@ -22,5 +22,9 @@ export default async function Page({ params }: { params: { isbn: string } }) {
     pageCount: book.pageCount,
     categories: book.categories,
   };
-  return <HorizontalBook bookData={bookData} condensed={false} />;
+  return (
+    <div className="p-4 md:px-8 lg:px-12 ">
+      <HorizontalBook bookData={bookData} condensed={false} />
+    </div>
+  );
 }

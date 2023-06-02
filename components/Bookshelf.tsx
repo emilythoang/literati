@@ -25,12 +25,11 @@ export default async function Bookshelf() {
   const bookshelves = await fetchShelves();
 
   return (
-    <div className="flex flex-col sm:flex-row">
-      <div className="flex flex-col">
-        <CreateShelf />
-        <Separator className="my-4" />
-        {bookshelves}
-      </div>
+    <div className="flex flex-col">
+      <h2 className="text-xl">Bookshelves</h2>
+      {bookshelves}
+      <Separator className="my-4" />
+      <CreateShelf />
     </div>
   );
 }
