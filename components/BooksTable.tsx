@@ -17,8 +17,6 @@ export default async function BooksTable() {
   if (!session) return;
   const userId = session.user.id;
   const books = await getData(userId);
-  console.log(JSON.stringify(books));
-
   return (
     <div className="container mx-auto py-10">
       <DataTable columns={columns} data={books} />

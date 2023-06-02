@@ -19,11 +19,16 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 51 204 204;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
+    --secondary: 242 137 100;
     --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary-orange: #f28964;
+    --secondary-blue: #4a90e2;
+    --secondary-pink: #f876a9;
+    --secondary-purple: #5b519c;
 
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
@@ -76,6 +81,13 @@
   }
   body {
     @apply bg-background text-foreground;
+    @apply font-inter;
     font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+  h1 {
+    @apply font-poppins;
+  }
+  h2 {
+    @apply font-lora;
   }
 }

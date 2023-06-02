@@ -21,6 +21,12 @@ module.exports = {
       backgroundImage: {
         hero: "url('../public/books.jpeg')",
       },
+      fontFamily: {
+        inter: ['var(--font-inter)', ...fontFamily.sans],
+        'open-sans': ['var(--font-open-sans)', ...fontFamily.mono],
+        lora: ['var(--font-lora)', ...fontFamily.sans],
+        poppins: ['var(--font-poppins)', ...fontFamily.mono],
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -28,11 +34,11 @@ module.exports = {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
+          DEFAULT: 'rgb(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
+          DEFAULT: 'rgb(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
         destructive: {

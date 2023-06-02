@@ -76,7 +76,7 @@ export const MobileNav = () => {
 export const MainNav = () => {
   return (
     <nav className="hidden justify-between items-center mx-8 my-3 md:flex lg:mx-12">
-      <div className="flex items-center gap-10">
+      <div className="flex items-center gap-8 lg:gap-10">
         <Link href="/" className="flex items-center text-lg font-bold">
           <GiBookshelf className="w-10 h-10 mr-2 " />
           Literati
@@ -88,7 +88,7 @@ export const MainNav = () => {
           Profile
         </Link>
       </div>
-      <div className="flex items-center gap-10">
+      <div className="flex items-center gap-8 lg:gap-10">
         <SearchBar />
         <User />
       </div>

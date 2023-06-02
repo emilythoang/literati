@@ -37,7 +37,7 @@ export default function VerticalBook({ bookData }: { bookData: BookData }) {
         <Button>
           <Link href={`/books/${isbn}`}>Learn more </Link>
         </Button>
-        <Button>
+        <Button variant="outline">
           <a href={amazon}>Buy Here</a>
         </Button>
       </CardFooter>
