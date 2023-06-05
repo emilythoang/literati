@@ -23,25 +23,26 @@ export default function Dropdown({
 }) {
   const { status } = useSession();
 
-  const getInitialState = async () => {
-    const initialShelves: CheckedLists = {};
-    const params = new URLSearchParams();
-    params.set('isbn', bookData.isbn);
-    const urlParams = params.toString();
-    for (let shelf of shelvesData) {
-      const res = await fetch(
-        `/api/bookshelves/${shelf.id}/books?${urlParams}`
-      );
-      const check = await res.json();
-      initialShelves[shelf.id] = check;
-    }
-    return initialShelves;
-  };
   const [bookInclusiveLists, setBookInclusiveLists] = useState<CheckedLists>(
     {}
   );
 
   useEffect(() => {
+    const getInitialState = async () => {
+      const initialShelves: CheckedLists = {};
+      const params = new URLSearchParams();
+      params.set('isbn', bookData.isbn);
+      const urlParams = params.toString();
+      for (let shelf of shelvesData) {
+        const res = await fetch(
+          `/api/bookshelves/${shelf.id}/books?${urlParams}`
+        );
+        const check = await res.json();
+        initialShelves[shelf.id] = check;
+      }
+      return initialShelves;
+    };
+
     let ignore = false;
     getInitialState().then((result) => {
       if (!ignore) {
@@ -51,7 +52,7 @@ export default function Dropdown({
     return () => {
       ignore = true;
     };
-  }, []);
+  }, [bookData.isbn, shelvesData]);
 
   const { toast } = useToast();
 

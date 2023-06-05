@@ -25,7 +25,7 @@ export default function User() {
             <Avatar>
               <AvatarImage
                 className="h-full w-full rounded-[inherit] object-cover"
-                src={image}
+                src={image ? image : ''}
                 alt="avatar"
               />
               <AvatarFallback>
