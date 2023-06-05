@@ -53,7 +53,7 @@ export default function User() {
   } else {
     return (
       <div className="flex items-center">
-        <Link href="/api/auth/signin">Sign In</Link>
+        <Link href="/signin">Sign In</Link>
       </div>
     );
   }

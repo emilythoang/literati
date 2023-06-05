@@ -4,13 +4,13 @@ import { FaGithub } from 'react-icons/fa';
 
 export default function Footer() {
   return (
-    <footer className="flex flex-row items-center justify-between mx-8 my-2 lg:mx-12 md:my-4">
+    <footer className="mx-8 my-2 flex flex-row items-center justify-between md:my-4 lg:mx-12">
       <Link href="/" className="flex items-center justify-between gap-2">
-        <GiBookshelf className="w-5 h-5" />
-        <div className="text-gray-500 text-md">Literati</div>
+        <GiBookshelf className="h-5 w-5" />
+        <div className="text-md text-gray-500">Literati</div>
       </Link>
-      <Link href="www.github.com">
-        <FaGithub className="w-5 h-5" />
+      <Link href="https://github.com/emilythoang/literati">
+        <FaGithub className="h-5 w-5" />
       </Link>
     </footer>
   );
