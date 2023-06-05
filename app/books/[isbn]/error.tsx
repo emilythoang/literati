@@ -20,7 +20,6 @@ export default function Error({
       <h1 className="text-3xl font-semibold md:text-4xl">
         Something went wrong!
       </h1>
-      <p>{error.message}</p>
       <Button
         variant="ghost"
         onClick={() => reset()}
