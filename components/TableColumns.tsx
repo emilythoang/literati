@@ -42,7 +42,10 @@ export const columns: ColumnDef<Book>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <Link href={`/books/${row.getValue('isbn')}`}>
+        <Link
+          className="underline-offset-4 hover:underline"
+          href={`/books/${row.getValue('isbn')}`}
+        >
           {row.getValue('title')}
         </Link>
       );

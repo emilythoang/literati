@@ -28,36 +28,36 @@ export const MobileNav = () => {
     setOpen(false);
   };
   return (
-    <div className="flex justify-between min-w-screen mx-4 my-2 md:hidden">
+    <div className="min-w-screen mx-4 my-2 flex justify-between md:hidden">
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <LuMenu className="w-10 h-10" />
+          <LuMenu className="h-10 w-10" />
         </SheetTrigger>
         <SheetContent position="left" size="full">
           <SheetHeader className="p-4">
-            <GiBookshelf className="w-10 h-10 " />
-            <SheetTitle className="text-6xl text-left font-bold">
+            <GiBookshelf className="h-10 w-10 " />
+            <SheetTitle className="text-left text-6xl font-bold">
               Literati
             </SheetTitle>
           </SheetHeader>
           <div className=" flex flex-col">
             <Link
               href="/"
-              className="text-2xl text-gray-600 p-4"
+              className="p-4 text-2xl text-gray-600 underline-offset-4 hover:underline"
               onClick={navigate}
             >
               Home
             </Link>
             <Link
               href="/discover"
-              className="text-2xl text-gray-600 p-4"
+              className="p-4 text-2xl text-gray-600 underline-offset-4 hover:underline"
               onClick={navigate}
             >
               Discover
             </Link>
             <Link
               href="/profile"
-              className="text-2xl text-gray-600 p-4"
+              className="p-4 text-2xl text-gray-600 underline-offset-4 hover:underline"
               onClick={navigate}
             >
               Profile
@@ -75,16 +75,25 @@ export const MobileNav = () => {
 
 export const MainNav = () => {
   return (
-    <nav className="hidden justify-between items-center mx-8 my-3 md:flex lg:mx-12">
+    <nav className="mx-8 my-3 hidden items-center justify-between md:flex lg:mx-12">
       <div className="flex items-center gap-8 lg:gap-10">
-        <Link href="/" className="flex items-center text-lg font-bold">
-          <GiBookshelf className="w-10 h-10 mr-2 " />
+        <Link
+          href="/"
+          className="flex items-center text-lg font-bold underline-offset-4 hover:underline"
+        >
+          <GiBookshelf className="mr-2 h-10 w-10 " />
           Literati
         </Link>
-        <Link href="/discover" className="text-gray-600 text-lg">
+        <Link
+          href="/discover"
+          className="text-lg text-gray-600 underline-offset-4 hover:underline"
+        >
           Discover
         </Link>
-        <Link href="/profile" className="text-gray-600 text-lg">
+        <Link
+          href="/profile"
+          className="text-lg text-gray-600 underline-offset-4 hover:underline"
+        >
           Profile
         </Link>
       </div>

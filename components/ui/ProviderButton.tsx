@@ -17,7 +17,12 @@ export function ProviderButton({ id, name }: { id: string; name: string }) {
   };
 
   return (
-    <Button variant="outline" size="lg" key={name} onClick={() => signIn(id)}>
+    <Button
+      variant="outline"
+      size="lg"
+      key={name}
+      onClick={() => signIn(id, { callbackUrl: '/' })}
+    >
       {renderIcon(name)}
       <span className="text-lg">Sign in with {name}</span>
     </Button>
