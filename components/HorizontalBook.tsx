@@ -18,9 +18,9 @@ export default function HorizontalBook({ bookData, condensed }: BookProps) {
     categories,
   } = bookData;
   return (
-    <Card className="flex flex-col items-center min-w-full p-2 lg:p-8 ">
-      <CardContent className="min-w-full grid grid-cols-1 items-center md:grid-cols-4">
-        <div className="w-[150px] h-[250px] relative flex justify-center items-center border">
+    <Card className="flex min-w-full flex-col items-center p-2 lg:p-8 ">
+      <CardContent className="grid min-w-full grid-cols-1 items-center pt-6 md:grid-cols-4 ">
+        <div className="relative flex h-[250px] w-[150px] items-center justify-center border lg:h-[300px] lg:w-[180px]">
           {image ? (
             <Image
               alt={title}
@@ -32,16 +32,16 @@ export default function HorizontalBook({ bookData, condensed }: BookProps) {
             <span>No image available</span>
           )}
         </div>
-        <div className="md:col-span-3">
+        <div className="space-y-2 md:col-span-3">
           {condensed ? (
             <Link
               href={`/books/${isbn}`}
-              className="text-4xl md:text-5xl font-semibold underline-offset-4 hover:underline hover:text-primary"
+              className="text-4xl font-semibold underline-offset-4 hover:text-primary hover:underline md:text-5xl"
             >
               {title}
             </Link>
           ) : (
-            <h1 className="text-4xl md:text-5xl font-semibold">{title}</h1>
+            <h1 className="text-4xl font-semibold md:text-5xl">{title}</h1>
           )}
 
           {authors ? (
@@ -49,14 +49,16 @@ export default function HorizontalBook({ bookData, condensed }: BookProps) {
           ) : (
             ''
           )}
-          {publishedDate ? <p>Published {publishedDate}</p> : ''}
+          <div>
+            {publishedDate ? <p>Published {publishedDate}</p> : ''}
+            {pageCount ? <p>{pageCount} pages</p> : ''}
+            {!condensed && categories
+              ? categories.map((category) => (
+                  <Badge key={category}>{category}</Badge>
+                ))
+              : ''}
+          </div>
           {!condensed ? <p>{description}</p> : ''}
-          {pageCount ? <p>{pageCount} pages</p> : ''}
-          {!condensed && categories
-            ? categories.map((category) => (
-                <Badge key={category}>{category}</Badge>
-              ))
-            : ''}
           <CardFooter className="flex justify-between p-0">
             {condensed ? (
               <Link

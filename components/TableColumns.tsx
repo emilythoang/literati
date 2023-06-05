@@ -32,7 +32,7 @@ export const columns: ColumnDef<Book>[] = [
           height={100}
         />
       ) : (
-        <div className="w-[150px] h-[250px] flex justify-center items-center border">
+        <div className="flex h-[250px] w-[150px] items-center justify-center border">
           No image available
         </div>
       ),
@@ -52,9 +52,7 @@ export const columns: ColumnDef<Book>[] = [
   },
   {
     accessorKey: 'authors',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Authors" />
-    ),
+    header: 'Authors',
     cell: ({ row }) => {
       let authors: Author[] = row.getValue('authors');
       return authors.map((author) => <p key={author.id}>{author.name}</p>);
@@ -64,10 +62,16 @@ export const columns: ColumnDef<Book>[] = [
     accessorKey: 'bookshelves',
     header: 'Bookshelves',
     cell: ({ row }) => {
-      let bookshelves: Bookshelf[] = row.getValue('bookshelves');
+      const bookshelves: Bookshelf[] = row.getValue('bookshelves');
       return bookshelves.map((bookshelf) => (
         <p key={bookshelf.id}>{bookshelf.name}</p>
       ));
+    },
+    filterFn: (row, id, value) => {
+      const bookshelves: Bookshelf[] = row.getValue(id);
+      return bookshelves.some((bookshelf: Bookshelf) =>
+        value.includes(bookshelf.id)
+      );
     },
   },
 ];

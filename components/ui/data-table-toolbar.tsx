@@ -1,30 +1,16 @@
 'use client';
-
+import { useMemo } from 'react';
 import { Table } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { DataTableViewOptions } from './data-table-view-options';
 import { LuX } from 'react-icons/lu';
 import { DataTableFacetedFilter } from './data-table-faceted-filter';
+import { Bookshelf } from '@prisma/client';
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
-
-const priorities = [
-  {
-    label: 'A',
-    value: 'A',
-  },
-  {
-    label: 'B',
-    value: 'B',
-  },
-  {
-    label: 'C',
-    value: 'C',
-  },
-];
 
 export function DataTableToolbar<TData>({
   table,
@@ -32,25 +18,30 @@ export function DataTableToolbar<TData>({
   const isFiltered =
     table.getPreFilteredRowModel().rows.length >
     table.getFilteredRowModel().rows.length;
-  console.log(table.getColumn('title')?.getFilterValue());
-
-  console.log(table.getColumn('authors')?.getFilterValue());
+  let bookshelves = table.getColumn('bookshelves');
+  const uniqueShelves = bookshelves?.getFacetedUniqueValues();
+  const sortedShelves = useMemo(
+    () => (uniqueShelves ? Array.from(uniqueShelves.keys()).sort() : []),
+    [uniqueShelves]
+  );
+  const uniqueOptions: Set<string> = new Set();
+  sortedShelves.slice(0, 5000).map((row) => {
+    row.forEach((shelf: Bookshelf) => {
+      uniqueOptions.add(JSON.stringify({ label: shelf.name, value: shelf.id }));
+    });
+  });
+  let options = [];
+  for (const option of uniqueOptions) {
+    options.push(JSON.parse(option));
+  }
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
-        {/* <Input
+        <Input
           placeholder="Filter books..."
           value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
           onChange={(event) =>
             table.getColumn('title')?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        /> */}
-        <Input
-          placeholder="Filter authors..."
-          value={(table.getColumn('authors')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('authors')?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -58,7 +49,7 @@ export function DataTableToolbar<TData>({
           <DataTableFacetedFilter
             column={table.getColumn('bookshelves')}
             title="Bookshelves"
-            options={priorities}
+            options={options}
           />
         )}
         {isFiltered && (

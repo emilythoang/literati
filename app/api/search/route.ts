@@ -19,11 +19,13 @@ export async function GET(request: Request) {
   const data = await res.json();
   const results = data.items
     .filter((result: Result) => {
+      const hasTitle = result.volumeInfo.title;
+      const hasAuthors = result.volumeInfo.authors;
       const identifiers = result.volumeInfo.industryIdentifiers;
       const hasISBN = identifiers?.some(
         (identifier) => identifier.type === 'ISBN_13'
       );
-      return hasISBN;
+      return hasTitle && hasAuthors && hasISBN;
     })
     .map((result: Result) => {
       const book: VolumeInfo = result.volumeInfo;

@@ -65,7 +65,7 @@ export default function Shelf({ id, name }: { id: string; name: string }) {
   };
 
   return (
-    <div>
+    <div className="grid grid-cols-3 items-center gap-4">
       {name}
       <>
         <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
@@ -79,7 +79,8 @@ export default function Shelf({ id, name }: { id: string; name: string }) {
               <DialogHeader>
                 <DialogTitle>Edit shelf</DialogTitle>
                 <DialogDescription>
-                  Make changes to your shelf here. Click save when you're done.
+                  Make changes to your shelf here. Click save when you&apos;re
+                  done.
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">

@@ -25,9 +25,11 @@ export default async function Bookshelf() {
   const bookshelves = await fetchShelves();
 
   return (
-    <div className="flex flex-col">
-      <h2 className="text-xl">Bookshelves</h2>
-      {bookshelves}
+    <div className="flex flex-col lg:min-w-[280px]">
+      <div className="flex flex-col gap-4">
+        <h2 className="text-xl">Bookshelves</h2>
+        {bookshelves}
+      </div>
       <Separator className="my-4" />
       <CreateShelf />
     </div>

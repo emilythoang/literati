@@ -41,11 +41,11 @@ export default function VerticalBook({ bookData }: { bookData: BookData }) {
         <Button
           variant="secondary"
           asChild
-          className="hover:bg-primary hover:text-primary-foreground"
+          className="py-4 lg:py-6 text-center hover:bg-primary hover:text-primary-foreground"
         >
-          <Link href={`/books/${isbn}`}>Read more </Link>
+          <Link href={`/books/${isbn}`}>Read more</Link>
         </Button>
-        <Button variant="outline">
+        <Button variant="outline" className="py-4 lg:py-6">
           <a href={amazon}>Buy here</a>
         </Button>
       </CardFooter>

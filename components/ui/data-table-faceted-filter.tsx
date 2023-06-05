@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Column } from '@tanstack/react-table';
 import { LuCheck, LuFilter } from 'react-icons/lu';
-
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
