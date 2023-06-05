@@ -21,7 +21,7 @@ export default function Dropdown({
   shelvesData: Bookshelf[];
   bookData: BookData;
 }) {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
   const getInitialState = async () => {
     const initialShelves: CheckedLists = {};

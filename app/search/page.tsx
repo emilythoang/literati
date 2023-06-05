@@ -29,7 +29,7 @@ export default async function Page({
   const query = searchParams.query;
   const results = await getData(query);
   return (
-    <div className="p-4 gap-4 sm:gap-6 md:px-8 lg:px-12 lg:gap-8 flex flex-col">
+    <div className="flex min-h-screen flex-col gap-4 p-4 sm:gap-6 md:px-8 lg:gap-8 lg:px-12">
       {results}
     </div>
   );

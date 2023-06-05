@@ -16,7 +16,9 @@ export default function CreateShelf() {
     try {
       const session = await getSession();
       if (!session) {
-        throw new Error('You must be logged in to create a shelf.');
+        throw new Error(
+          'This is a demo page. You must have an account to create a shelf.'
+        );
       }
       const body = { shelf };
       await fetch(`/api/bookshelves`, {

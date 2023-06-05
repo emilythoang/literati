@@ -6,7 +6,7 @@ export default function DiscoverLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section>
+    <section className="min-h-screen">
       <NavBar />
       {children}
     </section>

@@ -9,8 +9,7 @@ export async function PATCH(
 ) {
   const session = await getServerSession(authOptions);
   if (!session) {
-    console.log('error');
-    return new Response('You must be the owner to edit this list', {
+    return new Response('You must be logged in to edit this list', {
       status: 403,
     });
   }
@@ -33,8 +32,7 @@ export async function DELETE(
 ) {
   const session = await getServerSession(authOptions);
   if (!session) {
-    console.log('error');
-    return new Response('You must be the owner to delete this list', {
+    return new Response('You must be logged in to delete this list', {
       status: 403,
     });
   }

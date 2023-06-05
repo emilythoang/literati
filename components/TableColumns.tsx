@@ -4,8 +4,6 @@ import { Author, Bookshelf } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from './ui/button';
-import { LuArrowUpDown, LuMoreHorizontal } from 'react-icons/lu';
 import { DataTableColumnHeader } from './ui/data-table-column-header';
 
 // This type is used to define the shape of our data.

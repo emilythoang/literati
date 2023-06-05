@@ -5,15 +5,12 @@ import CreateShelf from '@/components/CreateShelf';
 import Shelf from './Shelf';
 import { Separator } from '@/components/ui/separator';
 import { Bookshelf as BookshelfType } from '@prisma/client';
-import BooksTable from './BooksTable';
 
 const fetchShelves = async () => {
   const session = await getServerSession(authOptions);
-  if (!session) {
-    return;
-  }
+  const userId = session ? session.user.id : 'demo';
   const data = await prisma.bookshelf.findMany({
-    where: { userId: session.user.id },
+    where: { userId },
   });
   const shelves = data.map((shelf: BookshelfType) => {
     return <Shelf key={shelf.id} id={shelf.id} name={shelf.name} />;
@@ -23,7 +20,6 @@ const fetchShelves = async () => {
 
 export default async function Bookshelf() {
   const bookshelves = await fetchShelves();
-
   return (
     <div className="flex flex-col lg:min-w-[280px]">
       <div className="flex flex-col gap-4">

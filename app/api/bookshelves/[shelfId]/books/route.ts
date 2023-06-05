@@ -9,8 +9,7 @@ export async function GET(
 ) {
   const session = await getServerSession(authOptions);
   if (!session) {
-    console.log('error');
-    return new Response('You must be the owner to update bookshelves', {
+    return new Response('You must be logged in to update bookshelves', {
       status: 403,
     });
   }
@@ -42,8 +41,7 @@ export async function POST(
 ) {
   const session = await getServerSession(authOptions);
   if (!session) {
-    console.log('error');
-    return new Response('You must be the owner to update bookshelves', {
+    return new Response('You must be logged in to update bookshelves', {
       status: 403,
     });
   }
@@ -86,8 +84,7 @@ export async function DELETE(
 ) {
   const session = await getServerSession(authOptions);
   if (!session) {
-    console.log('error');
-    return new Response('You must be the owner to update bookshelves', {
+    return new Response('You must be logged in to update bookshelves', {
       status: 403,
     });
   }

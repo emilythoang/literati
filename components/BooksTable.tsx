@@ -14,8 +14,7 @@ async function getData(userId: string): Promise<Book[]> {
 
 export default async function BooksTable() {
   const session = await getServerSession(authOptions);
-  if (!session) return;
-  const userId = session.user.id;
+  const userId = session ? session.user.id : 'demo';
   const books = await getData(userId);
   return (
     <div className="grow">

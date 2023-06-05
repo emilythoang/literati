@@ -1,17 +1,14 @@
 import { NextResponse } from 'next/server';
 import { Result, VolumeInfo } from '@/types';
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-
   const query = searchParams.get('query');
-
   if (!query) {
     throw new Error('Invalid query');
   }
   const params = encodeURIComponent(query);
-
   const link = `https://www.googleapis.com/books/v1/volumes?q=${params}&key=${process.env.BOOKS_API_KEY}`;
-
   let res = await fetch(link);
   if (!res.ok) {
     throw new Error('Failed to fetch data');
