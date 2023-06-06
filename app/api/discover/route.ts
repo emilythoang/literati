@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   const link = `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=${process.env.NYT_API_KEY}`;
-
-  // const link = `https://api.nytimes.com/svc/books/v3/lists/full-overview.json?api-key=${process.env.NYT_API_KEY}`;
   const res = await fetch(link);
   const data = await res.json();
   const books = data.results.books.map(
