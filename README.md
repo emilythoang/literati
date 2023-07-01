@@ -5,6 +5,6 @@
 - Authentication using **NextAuth.js**
 - Book-related data retrieval using **Google Books and New York Times API**
 - ORM using **Prisma**
-- Database on **Render**
+- Database on **Aiven**
 - UI Components built using **Radix UI and shadcn/ui**
 - Styled using **Tailwind CSS**
