@@ -1,13 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 export default function Page() {
   return (
-    <>
-      <h1>Facebook Data Deletion Instructions URL</h1>
+    <div className="flex flex-col p-4 md:px-8 lg:px-12">
+      <h1 className="mb-2 text-2xl font-semibold md:text-3xl">
+        Facebook Data Deletion Instructions URL
+      </h1>
       <p>
         If you want to delete your activities for Literati, you can remove your
         information by following these steps:
       </p>
-      <ol>
+      <ol className="list-decimal">
         <li>
           Go to your Facebook Account’s Setting & Privacy. Click “Settings”
         </li>
@@ -20,6 +22,6 @@ export default function Page() {
           Congratulations, you have succesfully removed your app activities.
         </li>
       </ol>
-    </>
+    </div>
   );
 }

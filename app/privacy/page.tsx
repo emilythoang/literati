@@ -1,13 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 export default function Page() {
   return (
-    <div>
-      <h1>Privacy Policy for Literati</h1>
+    <div className="flex flex-col p-4 md:px-8 lg:px-12">
+      <h1 className="mb-2 text-2xl font-semibold md:text-3xl">
+        Privacy Policy for Literati
+      </h1>
       <p>
-        At Literati, accessible from http://localhost:3000/, one of our main
-        priorities is the privacy of our visitors. This Privacy Policy document
-        contains types of information that is collected and recorded by Literati
-        and how we use it.
+        At Literati, accessible from https://literati.vercel.app/, one of our
+        main priorities is the privacy of our visitors. This Privacy Policy
+        document contains types of information that is collected and recorded by
+        Literati and how we use it.
       </p>
       <p>
         If you have additional questions or require more information about our
@@ -19,12 +21,12 @@ export default function Page() {
         shared and/or collect in Literati. This policy is not applicable to any
         information collected offline or via channels other than this website.
       </p>
-      <h2>Consent</h2>
+      <h2 className="mb-1 mt-4 text-xl md:text-2xl">Consent</h2>
       <p>
         By using our website, you hereby consent to our Privacy Policy and agree
         to its terms.
       </p>
-      <h2>Information we collect</h2>
+      <h2 className="mb-1 mt-4 text-xl md:text-2xl">Information we collect</h2>
       <p>
         The personal information that you are asked to provide, and the reasons
         why you are asked to provide it, will be made clear to you at the point
@@ -41,9 +43,11 @@ export default function Page() {
         information, including items such as name, company name, address, email
         address, and telephone number.
       </p>
-      <h2>How we use your information</h2>
+      <h2 className="mb-1 mt-4 text-xl md:text-2xl">
+        How we use your information
+      </h2>
       <p>We use the information we collect in various ways, including to:</p>
-      <ul>
+      <ul className="list-disc	">
         <li>Provide, operate, and maintain our website</li>
         <li>Improve, personalize, and expand our website</li>
         <li>Understand and analyze how you use our website</li>
@@ -57,7 +61,7 @@ export default function Page() {
         <li>Send you emails</li>
         <li>Find and prevent fraud</li>
       </ul>
-      <h2>Log Files</h2>
+      <h2 className="mb-1 mt-4 text-xl md:text-2xl">Log Files</h2>
       <p>
         Literati follows a standard procedure of using log files. These files
         log visitors when they visit websites. All hosting companies do this and
@@ -69,7 +73,7 @@ export default function Page() {
         analyzing trends, administering the site, tracking users' movement on
         the website, and gathering demographic information.
       </p>
-      <h2>Cookies and Web Beacons</h2>
+      <h2 className="mb-1 mt-4 text-xl md:text-2xl">Cookies and Web Beacons</h2>
       <p>
         Like any other website, Literati uses "cookies". These cookies are used
         to store information including visitors' preferences, and the pages on
@@ -77,7 +81,9 @@ export default function Page() {
         used to optimize the users' experience by customizing our web page
         content based on visitors' browser type and/or other information.
       </p>
-      <h2>Advertising Partners Privacy Policies</h2>
+      <h2 className="mb-1 mt-4 text-xl md:text-2xl">
+        Advertising Partners Privacy Policies
+      </h2>
       <p>
         You may consult this list to find the Privacy Policy for each of the
         advertising partners of Literati.
@@ -95,7 +101,9 @@ export default function Page() {
         Note that Literati has no access to or control over these cookies that
         are used by third-party advertisers.
       </p>
-      <h2>Third Party Privacy Policies</h2>
+      <h2 className="mb-1 mt-4 text-xl md:text-2xl">
+        Third Party Privacy Policies
+      </h2>
       <p>
         Literati's Privacy Policy does not apply to other advertisers or
         websites. Thus, we are advising you to consult the respective Privacy
@@ -109,7 +117,9 @@ export default function Page() {
         specific web browsers, it can be found at the browsers' respective
         websites.
       </p>
-      <h2>CCPA Privacy Rights (Do Not Sell My Personal Information)</h2>
+      <h2 className="mb-1 mt-4 text-xl md:text-2xl">
+        CCPA Privacy Rights (Do Not Sell My Personal Information)
+      </h2>
       <p>
         Under the CCPA, among other rights, California consumers have the right
         to:
@@ -131,7 +141,9 @@ export default function Page() {
         If you make a request, we have one month to respond to you. If you would
         like to exercise any of these rights, please contact us.
       </p>
-      <h2>GDPR Data Protection Rights</h2>
+      <h2 className="mb-1 mt-4 text-xl md:text-2xl">
+        GDPR Data Protection Rights
+      </h2>
       <p>
         We would like to make sure you are fully aware of all of your data
         protection rights. Every user is entitled to the following:
@@ -167,7 +179,7 @@ export default function Page() {
         If you make a request, we have one month to respond to you. If you would
         like to exercise any of these rights, please contact us.
       </p>
-      <h2>Children's Information</h2>
+      <h2 className="mb-1 mt-4 text-xl md:text-2xl">Children's Information</h2>
       <p>
         Another part of our priority is adding protection for children while
         using the internet. We encourage parents and guardians to observe,
@@ -180,7 +192,9 @@ export default function Page() {
         encourage you to contact us immediately and we will do our best efforts
         to promptly remove such information from our records.
       </p>
-      <h2>Changes to This Privacy Policy</h2>
+      <h2 className="mb-1 mt-4 text-xl md:text-2xl">
+        Changes to This Privacy Policy
+      </h2>
       <p>
         We may update our Privacy Policy from time to time. Thus, we advise you
         to review this page periodically for any changes. We will notify you of
@@ -193,7 +207,7 @@ export default function Page() {
           Privacy Policy Generator
         </a>
       </p>
-      <h2>Contact Us</h2>
+      <h2 className="mb-1 mt-4 text-xl md:text-2xl"> Contact Us</h2>
       <p>
         If you have any questions or suggestions about our Privacy Policy, do
         not hesitate to contact us.
